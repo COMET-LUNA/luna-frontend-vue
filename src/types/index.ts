@@ -30,6 +30,14 @@ export interface Symptom {
     Name: string,
 }
 
-export interface Doctors {
-    
+export interface Doctor {
+    sex: string,
+    name: string,
+    specialization: string,
+    price_range: string,
+    clinic_address: string,
+    clinic_location: string,
+    med_school: string,
+    birthyear: number,
+    startyear: number
 }
