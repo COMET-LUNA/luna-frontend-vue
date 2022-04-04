@@ -9,7 +9,6 @@ const routes = [
         component: Home,
     },
 ]
-
 const router = createRouter({
     history: createWebHistory(),
     routes,
