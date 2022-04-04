@@ -19,9 +19,9 @@
 </template>
 
 <script setup lang="ts">
-    import HomeCardComponent from '../components/HomeCardComponent.vue'
-    import FindMeComponent from '../components/FindMeComponent.vue'
-    import HistoryCardComponent from '../components/HistoryCardComponent.vue'
+    import HomeCardComponent from '../components/Home/HomeCardComponent.vue'
+    import FindMeComponent from '../components/Home/FindMeComponent.vue'
+    import HistoryCardComponent from '../components/Home/HistoryCardComponent.vue'
     // const hello = ref(sayHello())
 
     // hello.value = "changing the hello"

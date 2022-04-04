@@ -81,9 +81,6 @@
 <style scoped>
 .modal-body{
     background-color: rgb(191, 183, 236);
-    
 }
-.modal-content{
-    width: 800px;
-}
+
 </style>
