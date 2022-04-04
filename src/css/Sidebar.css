@@ -1,0 +1,15 @@
+.hover-effect:hover {
+  background-color: #222c85;
+}
+
+.hover-effect-grey:hover {
+  background-color: lightgrey;
+}
+
+.cursor-pointer:hover {
+  cursor: pointer;
+}
+
+.sidebar {
+  background-color: rgb(59, 74, 208);
+}
