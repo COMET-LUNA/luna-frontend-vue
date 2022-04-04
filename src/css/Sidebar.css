@@ -9,3 +9,7 @@
 .cursor-pointer:hover {
   cursor: pointer;
 }
+
+.sidebar {
+  background-color: rgb(59, 74, 208);
+}
