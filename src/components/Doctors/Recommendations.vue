@@ -18,12 +18,13 @@ const props = defineProps({
     },
 })
 
-const {firstRecommendations, secondRecommendations, specRecommendations} = props
+const {firstRecommendations, secondRecommendations, specRecommendations } = props
 
 var showSpec = false
 </script>
 
 <template>
+    
     <div class='mt-4'>
         <h3 class='mb-3'>Doctors that matches all your preferences and best specialization</h3>
         <DoctorRow v-for="doctor, index in firstRecommendations" :doctor="doctor" :isFirst="true" :key="index"/>

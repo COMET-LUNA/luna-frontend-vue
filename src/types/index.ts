@@ -41,3 +41,10 @@ export interface Doctor {
     birthyear: number,
     startyear: number
 }
+
+export interface Recommendations {
+    firstRecommendations: Array<Doctor>,
+    secondRecommendations: Array<Doctor>,
+    specRecommendations: Array<Doctor>,
+    diagnosis: String,
+}
