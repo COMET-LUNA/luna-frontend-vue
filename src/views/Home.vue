@@ -15,17 +15,13 @@
             <HistoryCardComponent/>
             
         </div>
-      <!-- <HistoryModal show={modalShow} onHide={() => setModalShow(false)} /> -->
     </div>
 </template>
 
 <script setup lang="ts">
-    import Navbar from '../components/Navbar.vue'
-    import { ref } from 'vue'
-    import FindMeComponent from '../components/FindMeComponent.vue'
     import HomeCardComponent from '../components/HomeCardComponent.vue'
+    import FindMeComponent from '../components/FindMeComponent.vue'
     import HistoryCardComponent from '../components/HistoryCardComponent.vue'
-    
     // const hello = ref(sayHello())
 
     // hello.value = "changing the hello"
