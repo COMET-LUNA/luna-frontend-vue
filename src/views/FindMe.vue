@@ -1,0 +1,3 @@
+<template>
+  whatsup
+</template>
