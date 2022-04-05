@@ -2,6 +2,8 @@
 import { ref } from 'vue';
 import Sidebar from '../components/Sidebar.vue'
 import Personal from '../components/Register/Personal.vue'
+import Security from '../components/Register/Security.vue'
+import Medical from '../components/Register/Medical.vue'
 
 var sampleData = ref([
   {
@@ -21,14 +23,27 @@ var sampleData = ref([
   }
 ])
 
+const progressIndex = ref(0)
+
 function nextPage() {
-  for(var item of sampleData.value) {
+  progressIndex.value += 1
+
+  for(var i = 0; i <= progressIndex.value; i++) {
+    const item = sampleData.value[i]
     if(item.progress < 2) item.progress += 1
     console.log(item.progress)
   }
 }
 
-const progressIndex = ref(0)
+function prevPage() {
+  progressIndex.value -= 1
+
+  for(var i = sampleData.value.length-1; i >= progressIndex.value; i--) {
+    const item = sampleData.value[i]
+    if(item.progress > 0) item.progress -= 1
+    console.log(item.progress)
+  }
+}
 
 </script>
 
@@ -45,8 +60,12 @@ const progressIndex = ref(0)
       <Sidebar :sideData="sampleData" />
     </div>
     <div className="col-9 m-0 p-0">
-      <Personal v-if="progressIndex === 0"/>
-      <button class="btn btn-primary" @click="nextPage">Test</button>
+      <Personal v-if="progressIndex === 0" @next-page="nextPage"/>
+      <Security v-if="progressIndex === 1" @next-page="nextPage" @prev-page="prevPage"/>
+      <Medical v-if="progressIndex === 2" @next-page="nextPage" @prev-page="prevPage"/>
+
+      <!-- <button class="btn btn-primary" @click="nextPage">Next</button>
+      <button class="btn btn-primary" @click="prevPage">Back</button> -->
     </div>
   </div>
 

@@ -87,7 +87,7 @@
       <div :class="showError ? 'alert alert-danger' : 'alert alert-danger d-none'" role="alert">
         {{ errorText }}
       </div>
-      <button type="button" class="btn btn-primary">NEXT</button>
+      <button type="button" class="btn btn-primary" @click="$emit('next-page')">NEXT</button>
     </div>
   </div>
 
