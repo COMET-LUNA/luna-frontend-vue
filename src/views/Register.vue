@@ -4,21 +4,28 @@ import Sidebar from '../components/Sidebar.vue'
 import Personal from '../components/Register/Personal.vue'
 import Security from '../components/Register/Security.vue'
 import Medical from '../components/Register/Medical.vue'
+import Review from '../components/Register/Review.vue'
+import router from '../routes';
 
-var sampleData = ref([
+var sideData = ref([
   {
-    title: 'Sample Title 1',
-    desc: 'Sample Description to this title.',
+    title: 'Personal Details',
+    desc: 'Provide your name, age, and email',
     progress: 1
   },
   {
-    title: 'Sample Title 2',
-    desc: 'Sample Description to this title.',
+    title: 'Security',
+    desc: 'Enter in a secure password to protect your account',
     progress: 0
   },
   {
-    title: 'Sample Title 3',
-    desc: 'Sample Description to this title.',
+    title: 'Medical Information',
+    desc: 'Input your medical information to be used by your doctors.',
+    progress: 0
+  },
+  {
+    title: 'Confirm Account Details',
+    desc: 'Confirm account details to complete register process',
     progress: 0
   }
 ])
@@ -26,23 +33,37 @@ var sampleData = ref([
 const progressIndex = ref(0)
 
 function nextPage() {
-  progressIndex.value += 1
+  if (progressIndex.value < sideData.value.length) {
+    progressIndex.value += 1
 
-  for(var i = 0; i <= progressIndex.value; i++) {
-    const item = sampleData.value[i]
-    if(item.progress < 2) item.progress += 1
-    console.log(item.progress)
+    for(var i = 0; i <= progressIndex.value; i++) {
+      const item = sideData.value[i]
+      if(item.progress < 2) item.progress += 1
+      console.log(item.progress)
+    }
   }
 }
 
 function prevPage() {
-  progressIndex.value -= 1
+  if (progressIndex.value > 0) {
 
-  for(var i = sampleData.value.length-1; i >= progressIndex.value; i--) {
-    const item = sampleData.value[i]
-    if(item.progress > 0) item.progress -= 1
-    console.log(item.progress)
+    progressIndex.value -= 1
+
+    for(var i = sideData.value.length-1; i >= progressIndex.value; i--) {
+      const item = sideData.value[i]
+      if(item.progress > 0) item.progress -= 1
+      console.log(item.progress)
+    }
+
   }
+}
+
+function register() {
+  // add register logic here
+
+
+  // redirect
+  window.location.href = "/"
 }
 
 </script>
@@ -57,12 +78,13 @@ function prevPage() {
           <img className='me-3' src="../assets/images/moon-full-moon-icon.png" alt='logo' width="75"/>
           <span className="sidebar-title">LUNA</span>
       </div>
-      <Sidebar :sideData="sampleData" />
+      <Sidebar :sideData="sideData" />
     </div>
     <div className="col-9 m-0 p-0">
       <Personal v-if="progressIndex === 0" @next-page="nextPage"/>
       <Security v-if="progressIndex === 1" @next-page="nextPage" @prev-page="prevPage"/>
       <Medical v-if="progressIndex === 2" @next-page="nextPage" @prev-page="prevPage"/>
+      <Review v-if="progressIndex === 3" @register="register" @prev-page="prevPage"/>
 
       <!-- <button class="btn btn-primary" @click="nextPage">Next</button>
       <button class="btn btn-primary" @click="prevPage">Back</button> -->
