@@ -6,6 +6,8 @@ import Symptom from '../components/FindMe/Symptom.vue'
 import Preference from '../components/FindMe/Preference.vue'
 import Review from '../components/FindMe/Review.vue'
 
+import { useWorkspace, setWorkspace } from '../composables';
+
 var sideData = ref([
   {
     title: 'Symptoms',
@@ -58,6 +60,7 @@ let preference:any = ref({})
 
 function addSymptom(symptomObj : any){
   symptoms.value.push(Object.assign({},symptomObj))
+  saveToWorkspace()
 }
 
 function deleteSymptom(symptomId: number) {
@@ -67,6 +70,12 @@ function deleteSymptom(symptomId: number) {
 function addPreference(preferenceObj : any){
   preference.value = preferenceObj
   alert(preference.value.sex)
+}
+
+function saveToWorkspace() {
+  const newWorkspace = useWorkspace()
+  newWorkspace.symptoms = symptoms
+  setWorkspace(newWorkspace)
 }
 
 function findMe() {

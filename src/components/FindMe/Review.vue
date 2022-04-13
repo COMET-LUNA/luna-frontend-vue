@@ -1,4 +1,14 @@
 <script setup lang="ts">
+
+import {ref} from 'vue'
+import { useWorkspace, setWorkspace } from '../../composables';
+
+
+const workspace = useWorkspace()
+
+let symptoms:any = ref(workspace.symptoms)
+
+
 </script>
 
 <template>
@@ -7,6 +17,9 @@
         <span>Verify if the information below is correct</span>
         <div className="mt-5 rounded-3">
             <h3>Symptom List</h3>
+            <div>
+                <span v-for="item, index in symptoms">{{item.Name}}</span>
+            </div>
         </div>
         <div className="mt-5 rounded-3">
             <h3>Doctor Preferences</h3>
