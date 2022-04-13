@@ -18,7 +18,7 @@ let symptoms:any = ref(workspace.symptoms)
         <div className="mt-5 rounded-3">
             <h3>Symptom List</h3>
             <div>
-                <span v-for="item, index in symptoms">{{item.Name}}</span>
+                <span v-for="(item, index) in symptoms">{{item.symptom.Name}}</span>
             </div>
         </div>
         <div className="mt-5 rounded-3">
