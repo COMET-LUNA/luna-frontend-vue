@@ -1,5 +1,25 @@
 <script setup lang="ts">
 
+    import {ref} from 'vue'
+    import { useWorkspace } from '../../composables';
+
+    const workspace = useWorkspace()
+
+    let registration:any = ref(workspace.registration)
+    let birthMonthDict = {
+        1: 'January',
+        2: 'February',
+        3: 'March',
+        4: 'April',
+        5: 'May',
+        6: 'June',
+        7: 'July',
+        8: 'August',
+        9: 'September',
+        10: 'October',
+        11: 'November',
+        12: 'December'
+    }
 
 
 </script>
@@ -13,39 +33,39 @@
         <tbody>
             <tr>
             <th>Name</th>
-            <td>{firstname} {lastname}</td>
+            <td>{{registration.personal.firstName}} {{registration.personal.lastName}}</td>
             </tr>
             <tr>
             <th>Birthdate</th>
-            <td>{dateDict[birthMonth]} {birthDay}, {birthYear}</td>
+            <td>{{birthMonthDict[registration.personal.birthMonth]}} {{registration.personal.birthDay}}, {{registration.personal.birthYear}}</td>
             </tr>
             <tr>
             <th>Sex</th>
-            <td>{sex === 1 ? "Male" : "Female"}</td>
+            <td>{{registration.personal.sex == 1 ? 'Male' : 'Female'}}</td>
             </tr>
             <tr>
             <th>Email Address</th>
-            <td>{email}</td>
+            <td>{{registration.personal.emailAddress}}</td>
             </tr>
             <tr>
             <th>Blood Type</th>
-            <td>{bloodTypeDict[bloodType]}</td>
+            <td>{{registration.medical.bloodType}}</td>
             </tr>
             <tr>
             <th>Weight in kg</th>
-            <td>{weightKg}</td>
+            <td>{{registration.medical.weightKg}}</td>
             </tr>
             <tr>
             <th>Height in cm</th>
-            <td>{heightCm}</td>
+            <td>{{registration.medical.heightCm}}</td>
             </tr>
             <tr>
             <th>Dietary Restrictions</th>
-            <td>{diet}</td>
+            <td>{{registration.medical.diet}}</td>
             </tr>
             <tr>
             <th>Known Illnesses</th>
-            <td>{illnesses}</td>
+            <td>{{registration.medical.illnesses}}</td>
             </tr>
         </tbody>
         </table>

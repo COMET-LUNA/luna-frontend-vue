@@ -8,6 +8,11 @@ export const initWorkspace = () => {
         user: {},
         symptoms: [],
         preferences: {},
+        registration: {
+            personal: {},
+            security: {},
+            medical: {}
+        }
     }
 }
 

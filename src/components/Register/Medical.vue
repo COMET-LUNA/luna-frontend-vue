@@ -1,18 +1,59 @@
 <script setup lang="ts">
 
-import {ref, reactive} from 'vue'
+  import {ref, reactive} from 'vue'
+  import {useWorkspace, setWorkspace} from '../../composables'
 
-const state = reactive({
-    bloodType: "",
-    heightCm: "",
-    weightKg: "",
-    diet: "",
-    illnesses: "",
-})
+  let emit = defineEmits(['next-page', 'prev-page'])
+  const workspace = useWorkspace()
 
-const showError = ref(true)
+  let state = reactive({
+      bloodType: "",
+      heightCm: "",
+      weightKg: "",
+      diet: "",
+      illnesses: "",
+  })
 
-const errorText = ref("Sample Error Text")
+  if (workspace.registration.medical.bloodType !== "") {
+    state = workspace.registration.medical
+  }
+
+  const showError = ref(false)
+
+  const errorText = ref("Sample Error Text")
+
+  function nextPage() {
+    saveChanges()
+    if(checkInputs()) emit('next-page')
+  }
+
+  function backPage() {
+    saveChanges()
+    emit('prev-page')
+  }
+
+  function saveChanges() {
+    const newWorkspace = useWorkspace()
+    newWorkspace.registration.medical = state
+    setWorkspace(newWorkspace)
+  }
+
+  function checkInputs() {
+      if (
+          state.bloodType === undefined ||
+          state.heightCm === undefined ||
+          state.weightKg === undefined ||
+          state.diet === undefined ||
+          state.illnesses === undefined
+      ){
+          showError.value = true
+          errorText.value = "Fill up all required fields."
+          return false
+      }
+
+      showError.value = false
+      return true
+  }
 
 
 </script>
@@ -29,7 +70,6 @@ const errorText = ref("Sample Error Text")
                   <div className="col-4">
                     <div class="form-floating">
                       <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="state.bloodType">
-                        <option selected value="">Choose Blood Type</option>
                         <option value="ap">A+</option>
                         <option value="am">A-</option>
                         <option value="bp">B+</option>
@@ -67,8 +107,8 @@ const errorText = ref("Sample Error Text")
                 <div :class="showError ? 'alert alert-danger' : 'alert alert-danger d-none'" role="alert">
                   {{errorText}}
                 </div>
-                <button type="button" class="btn btn-secondary me-3" @click="$emit('prev-page')">BACK</button>
-                <button type="button" class="btn btn-primary" @click="$emit('next-page')">NEXT</button>
+                <button type="button" class="btn btn-secondary me-3" @click="backPage">BACK</button>
+                <button type="button" class="btn btn-primary" @click="nextPage">NEXT</button>
               </div>
             </div>
 

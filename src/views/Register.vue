@@ -31,11 +31,6 @@ var sideData = ref([
 ])
 
 const progressIndex = ref(0)
-let registerData = ref({
-  personal: {},
-  security: {},
-  medical: {},
-})
 
 function nextPage() {
   if (progressIndex.value < sideData.value.length) {
