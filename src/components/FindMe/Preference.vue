@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
+import { useWorkspace } from '../../composables';
 import Options from "../../data/options.json"
 
 let emit = defineEmits(['add-pref', 'next-page', 'prev-page'])
@@ -11,6 +12,10 @@ let preferenceObj = ref({
     price: "na",
     sex: "na"
 })
+
+const workspace = useWorkspace()
+preferenceObj = workspace.preferences
+
 
 function assignPref(pref:string, val:any){
     switch(pref){

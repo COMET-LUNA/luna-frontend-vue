@@ -14,9 +14,7 @@
       illnesses: "",
   })
 
-  if (workspace.registration.medical.bloodType !== "") {
-    state = workspace.registration.medical
-  }
+  state = workspace.registration.medical
 
   const showError = ref(false)
 
@@ -40,15 +38,25 @@
 
   function checkInputs() {
       if (
-          state.bloodType === undefined ||
-          state.heightCm === undefined ||
-          state.weightKg === undefined ||
-          state.diet === undefined ||
-          state.illnesses === undefined
+          state.bloodType === "" ||
+          state.heightCm === "" ||
+          state.weightKg === ""
       ){
           showError.value = true
           errorText.value = "Fill up all required fields."
           return false
+      }
+
+      if (!Number.isInteger(Number(state.heightCm))) {
+        showError.value = true
+        errorText.value = "Invalid Height"
+        return false
+      }
+
+      if (!Number.isInteger(Number(state.weightKg))) {
+        showError.value = true
+        errorText.value = "Invalid Weight"
+        return false
       }
 
       showError.value = false

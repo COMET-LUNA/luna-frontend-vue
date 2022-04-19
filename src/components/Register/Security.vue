@@ -12,9 +12,7 @@
         confPassword: "",
     })
 
-    if (workspace.registration.security.password !== "") {
-        state = workspace.registration.security
-    }
+    state = workspace.registration.security
 
     const showError = ref(false)
 
@@ -38,15 +36,15 @@
 
     function checkInputs() {
         if (
-            state.password === undefined ||
-            state.confPassword === undefined
+            state.password === "" ||
+            state.confPassword === ""
         ){
             showError.value = true
             errorText.value = "Fill up all required fields."
             return false
         }
 
-        if (state.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")) {
+        if (!state.password.match("^(?=.*?[A-Za-z])(?=.*?[0-9])[A-Za-z0-9]{8,}$")) {
             showError.value = true
             errorText.value = "Password must have at least one letter and one number and must be at least 8 characters."
             return false

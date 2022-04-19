@@ -9,9 +9,26 @@ export const initWorkspace = () => {
         symptoms: [],
         preferences: {},
         registration: {
-            personal: {},
-            security: {},
-            medical: {}
+            personal: {
+                firstName: "",
+                lastName: "",
+                birthMonth: "",
+                birthDay: "",
+                birthYear: "",
+                emailAddress: "",
+                sex: "",
+              },
+            security: {
+                password: "",
+                confPassword: "",
+            },
+            medical: {
+                bloodType: "",
+                heightCm: "",
+                weightKg: "",
+                diet: "",
+                illnesses: "",
+            }
         }
     }
 }

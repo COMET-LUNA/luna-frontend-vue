@@ -1,25 +1,16 @@
 <script setup lang="ts">
 
     import {ref} from 'vue'
-    import { useWorkspace } from '../../composables';
+    import { useWorkspace, birthMonthDict, bloodTypeDict } from '../../composables';
 
     const workspace = useWorkspace()
 
     let registration:any = ref(workspace.registration)
-    let birthMonthDict = {
-        1: 'January',
-        2: 'February',
-        3: 'March',
-        4: 'April',
-        5: 'May',
-        6: 'June',
-        7: 'July',
-        8: 'August',
-        9: 'September',
-        10: 'October',
-        11: 'November',
-        12: 'December'
-    }
+
+    const props = defineProps({
+        firebaseError: {type: Boolean},
+        firebaseErrorText: {type: String}
+    })
 
 
 </script>
@@ -49,7 +40,7 @@
             </tr>
             <tr>
             <th>Blood Type</th>
-            <td>{{registration.medical.bloodType}}</td>
+            <td>{{bloodTypeDict[registration.medical.bloodType]}}</td>
             </tr>
             <tr>
             <th>Weight in kg</th>
@@ -69,8 +60,11 @@
             </tr>
         </tbody>
         </table>
-                <button type="button" class="btn btn-secondary me-3" @click="$emit('prev-page')">BACK</button>
-                <button type="button" class="btn btn-primary" @click="$emit('register')">REGISTER ACCOUNT</button>
+        <div :class="props.firebaseError ? 'alert alert-danger' : 'alert alert-danger d-none'" role="alert">
+            {{props.firebaseErrorText}}
+        </div>
+        <button type="button" class="btn btn-secondary me-3" @click="$emit('prev-page')">BACK</button>
+        <button type="button" class="btn btn-primary" @click="$emit('register')">REGISTER ACCOUNT</button>
     </div>
     </div>
 

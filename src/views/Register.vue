@@ -6,6 +6,12 @@ import Security from '../components/Register/Security.vue'
 import Medical from '../components/Register/Medical.vue'
 import Review from '../components/Register/Review.vue'
 import router from '../routes';
+import axios from 'axios'
+
+
+import {useWorkspace, setWorkspace} from '../composables'
+
+const workspace = useWorkspace()
 
 var sideData = ref([
   {
@@ -30,6 +36,9 @@ var sideData = ref([
   }
 ])
 
+let firebaseErrorText = ref("")
+let firebaseError = ref(false)
+
 const progressIndex = ref(0)
 
 function nextPage() {
@@ -45,6 +54,7 @@ function nextPage() {
 }
 
 function prevPage() {
+  firebaseError.value = false
   if (progressIndex.value > 0) {
 
     progressIndex.value -= 1
@@ -58,23 +68,27 @@ function prevPage() {
   }
 }
 
-function addData(type:number) {
-  switch(type){
-    case 0: // personal data
-      break;
-    case 1: // security data
-      break;
-    case 2: // medical data
-      break;
-  }
-}
-
 function register() {
   // add register logic here
-
-
-  // redirect
-  window.location.href = "/"
+  let userData = workspace.registration
+  axios.post(
+      'http://localhost:3030/register',
+      {
+        userData
+      }
+    ).then((res) => {
+      const newWorkspace = useWorkspace()
+      newWorkspace.user = res.data.user
+      setWorkspace(newWorkspace)
+      window.location.href = "/"
+    }).catch(e => {
+      console.log(e.response.data.errorCode)
+      switch(e.response.data.errorCode) {
+        case 'auth/email-already-in-use':
+          firebaseError.value = true
+          firebaseErrorText.value = 'Email already in use. Please login using your registered email and password.'
+      }
+    })
 }
 
 </script>
@@ -95,7 +109,7 @@ function register() {
       <Personal v-if="progressIndex === 0" @next-page="nextPage"/>
       <Security v-if="progressIndex === 1" @next-page="nextPage" @prev-page="prevPage"/>
       <Medical v-if="progressIndex === 2" @next-page="nextPage" @prev-page="prevPage"/>
-      <Review v-if="progressIndex === 3" @register="register" @prev-page="prevPage"/>
+      <Review v-if="progressIndex === 3" @register="register" @prev-page="prevPage" :firebaseError="firebaseError" :firebaseErrorText="firebaseErrorText"/>
 
       <!-- <button class="btn btn-primary" @click="nextPage">Next</button>
       <button class="btn btn-primary" @click="prevPage">Back</button> -->

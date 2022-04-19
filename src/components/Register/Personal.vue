@@ -1,39 +1,37 @@
 <script setup lang="ts">
 
-  import { reactive,ref } from 'vue'
+  import { onMounted, reactive, ref } from 'vue'
   import {useWorkspace, setWorkspace} from '../../composables'
 
   let emit = defineEmits(['next-page', 'prev-page'])
   const workspace = useWorkspace()
-
-  let state = reactive({
-      firstName: "sample",
+  let state = reactive(
+    {
+      firstName: "",
       lastName: "",
       birthMonth: "",
       birthDay: "",
       birthYear: "",
       emailAddress: "",
       sex: "",
-  })
+    }
+  )
 
-  if (workspace.registration.personal.firstName !== "") {
-    state = workspace.registration.personal
-  }
+  state = workspace.registration.personal
 
   const showError = ref(false)
 
   let errorText = ref("Sample Error Message")
 
   function checkInputs() {
-    console.log(state.firstName)
     if (
-      state.firstName === undefined ||
-      state.lastName === undefined ||
-      state.birthMonth === undefined ||
-      state.birthDay === undefined ||
-      state.birthYear === undefined ||
-      state.emailAddress === undefined ||
-      state.sex === undefined
+      state.firstName === "" ||
+      state.lastName === "" ||
+      state.birthMonth === "" ||
+      state.birthDay === "" ||
+      state.birthYear === "" ||
+      state.emailAddress === "" ||
+      state.sex === ""
     ){
       showError.value = true
       errorText.value = "Fill up all required fields."
@@ -48,13 +46,13 @@
       return false
     }
 
-    if (parseInt(state.birthDay) < 0 || parseInt(state.birthDay) > 31) {
+    if (!Number.isInteger(Number(state.birthDay)) || parseInt(state.birthDay) < 0 || parseInt(state.birthDay) > 31) {
       showError.value = true
       errorText.value = "Invalid Birth Day"
       return false
     }
 
-    if (parseInt(state.birthYear) < 1900 || parseInt(state.birthYear) > 3000) {
+    if (!Number.isInteger(Number(state.birthYear)) || parseInt(state.birthYear) < 1900 || parseInt(state.birthYear) > 3000) {
       showError.value = true
       errorText.value = "Invalid Birth Year"
       return false
@@ -119,13 +117,13 @@
         </div>
         <div className="col-3">
           <div className="form-floating">
-            <input type="email" class="form-control" id="floatingInput" v-model="state.birthDay"/>
+            <input type="text" class="form-control" id="floatingInput" v-model="state.birthDay"/>
             <label for="floatingInput">Birth Day<span className="text-danger">*</span></label>
           </div>
         </div>
         <div className="col-3">
           <div className="form-floating">
-            <input type="email" class="form-control" id="floatingInput" v-model="state.birthYear"/>
+            <input type="text" class="form-control" id="floatingInput" v-model="state.birthYear"/>
             <label for="floatingInput">Birth Year<span className="text-danger">*</span></label>
           </div>
         </div>
