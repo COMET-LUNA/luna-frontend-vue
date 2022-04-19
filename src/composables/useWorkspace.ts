@@ -6,9 +6,33 @@ export const initWorkspace = () => {
     workspace = {
         hello: "hello",
         user: {},
+        symptoms: [],
+        preferences: {},
+        registration: {
+            personal: {
+                firstName: "",
+                lastName: "",
+                birthMonth: "",
+                birthDay: "",
+                birthYear: "",
+                emailAddress: "",
+                sex: "",
+              },
+            security: {
+                password: "",
+                confPassword: "",
+            },
+            medical: {
+                bloodType: "",
+                heightCm: "",
+                weightKg: "",
+                diet: "",
+                illnesses: "",
+            }
+        }
     }
 }
 
-export const setUser = (user: any) => {
-    workspace.user = user
+export const setWorkspace = (new_workspace: any) => {
+    workspace = new_workspace;
 }

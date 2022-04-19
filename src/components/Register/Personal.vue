@@ -1,20 +1,77 @@
 <script setup lang="ts">
 
-  import { reactive,ref } from 'vue'
+  import { onMounted, reactive, ref } from 'vue'
+  import {useWorkspace, setWorkspace} from '../../composables'
 
-  const state = reactive({
-    firstName: "",
-    lastName: "",
-    birthMonth: "",
-    birthDay: "",
-    birthYear: "",
-    emailAddress: "",
-    sex: "",
-  })
+  let emit = defineEmits(['next-page', 'prev-page'])
+  const workspace = useWorkspace()
+  let state = reactive(
+    {
+      firstName: "",
+      lastName: "",
+      birthMonth: "",
+      birthDay: "",
+      birthYear: "",
+      emailAddress: "",
+      sex: "",
+    }
+  )
 
-  const showError = ref(true)
+  state = workspace.registration.personal
 
-  const errorText = ref("Sample Error Message")
+  const showError = ref(false)
+
+  let errorText = ref("Sample Error Message")
+
+  function checkInputs() {
+    if (
+      state.firstName === "" ||
+      state.lastName === "" ||
+      state.birthMonth === "" ||
+      state.birthDay === "" ||
+      state.birthYear === "" ||
+      state.emailAddress === "" ||
+      state.sex === ""
+    ){
+      showError.value = true
+      errorText.value = "Fill up all required fields."
+      return false
+    }
+
+    if (!state.emailAddress.toLowerCase().match(
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+    )){
+      showError.value = true
+      errorText.value = "Invalid Email"
+      return false
+    }
+
+    if (!Number.isInteger(Number(state.birthDay)) || parseInt(state.birthDay) < 0 || parseInt(state.birthDay) > 31) {
+      showError.value = true
+      errorText.value = "Invalid Birth Day"
+      return false
+    }
+
+    if (!Number.isInteger(Number(state.birthYear)) || parseInt(state.birthYear) < 1900 || parseInt(state.birthYear) > 3000) {
+      showError.value = true
+      errorText.value = "Invalid Birth Year"
+      return false
+    }
+
+    showError.value = false
+    return true
+  }
+
+  function nextPage() {
+    saveChanges()
+    if(checkInputs()) emit('next-page')
+  }
+
+  function saveChanges() {
+    const newWorkspace = useWorkspace()
+    newWorkspace.registration.personal = state
+    setWorkspace(newWorkspace)
+  }
 
 </script>
 
@@ -42,7 +99,6 @@
         <div className="col-6">
           <div class="form-floating mb-3">
             <select class="form-select" id="validationDefault04" required v-model="state.birthMonth">
-              <option selected disabled value="">Choose...</option>
               <option value="1">January</option>
               <option value="2">February</option>
               <option value="3">March</option>
@@ -61,13 +117,13 @@
         </div>
         <div className="col-3">
           <div className="form-floating">
-            <input type="email" class="form-control" id="floatingInput" v-model="state.birthDay"/>
+            <input type="text" class="form-control" id="floatingInput" v-model="state.birthDay"/>
             <label for="floatingInput">Birth Day<span className="text-danger">*</span></label>
           </div>
         </div>
         <div className="col-3">
           <div className="form-floating">
-            <input type="email" class="form-control" id="floatingInput" v-model="state.birthYear"/>
+            <input type="text" class="form-control" id="floatingInput" v-model="state.birthYear"/>
             <label for="floatingInput">Birth Year<span className="text-danger">*</span></label>
           </div>
         </div>
@@ -78,7 +134,6 @@
       </div>
       <div class="form-floating mb-3">
         <select class="form-select" id="floatingSelect" aria-label="Floating label select example" v-model="state.sex">
-          <option selected value="">Choose Sex</option>
           <option value="1">Male</option>
           <option value="2">Female</option>
         </select>
@@ -87,7 +142,7 @@
       <div :class="showError ? 'alert alert-danger' : 'alert alert-danger d-none'" role="alert">
         {{ errorText }}
       </div>
-      <button type="button" class="btn btn-primary">NEXT</button>
+      <button type="button" class="btn btn-primary" @click="nextPage">NEXT</button>
     </div>
   </div>
 
