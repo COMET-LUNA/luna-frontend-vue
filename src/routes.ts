@@ -3,6 +3,7 @@ import Home from './views/Home.vue'
 import FindMe from './views/FindMe.vue'
 import Register from './views/Register.vue'
 import Doctors from './views/Doctors.vue'
+import Login from './views/Login.vue'
 
 
 const routes = [
@@ -25,7 +26,12 @@ const routes = [
         path: '/doctors',
         name: 'Doctors',
         component: Doctors,
-    }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login,
+  },
 ]
 
 const router = createRouter({

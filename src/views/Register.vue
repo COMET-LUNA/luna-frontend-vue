@@ -78,7 +78,7 @@ function register() {
       }
     ).then((res) => {
       const newWorkspace = useWorkspace()
-      newWorkspace.user = res.data.user
+      newWorkspace.user = res.data.userData
       setWorkspace(newWorkspace)
       window.location.href = "/"
     }).catch(e => {
