@@ -2,6 +2,7 @@
 import axios from "axios";
 import { ref } from "vue";
 import { useWorkspace, setWorkspace } from "../composables";
+import router from "../routes";
 
 const workspace = useWorkspace();
 let errorText = ref(
@@ -26,7 +27,8 @@ function loginUser() {
       const newWorkspace = useWorkspace();
       newWorkspace.user = res.data.userData;
       setWorkspace(newWorkspace);
-      window.location.href = "/";
+      // window.location.href = "/";
+      router.push('/')
     })
     .catch((e) => {
       const errorCode = e.response.data.errorCode;

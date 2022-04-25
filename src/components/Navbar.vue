@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-let firstName = "Sean"
-let lastName = "Pe"
+import { useWorkspace } from '../composables';
+
+const workspace = useWorkspace()
+
+const user = workspace.user
+
+console.log(user)
 
 </script>
 
@@ -13,7 +18,7 @@ let lastName = "Pe"
         </button>
         <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
             <a class="navbar-brand ms-3" href="/">
-              <img className='me-3' alt="logo" style="width:50px"/>
+              <img src="../assets/images/moon-full-moon-icon.png" className='me-3' alt="logo" style="width:50px"/>
               LUNA
             </a>
             <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
@@ -34,7 +39,7 @@ let lastName = "Pe"
               </li>
             </ul>
             <a class="float-end me-3 nav-link text-black" href="/">
-              {{firstName}} {{lastName}}
+              {{user.personal.firstName}} {{user.personal.lastName}}
               <img className='ms-3 rounded-pill'/>
             </a>
         </div>

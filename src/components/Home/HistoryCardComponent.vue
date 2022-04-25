@@ -1,5 +1,5 @@
 <template>
-    <div class="col-sm-6 p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <div class="p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
         <!-- MODAL -->
         <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-lg">

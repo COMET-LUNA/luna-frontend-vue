@@ -22,3 +22,7 @@
 .symptom {
     font-size: 1.3rem
 }
+
+.modal-background {
+    background-color: rgba(27, 26, 26, 0.8);
+}

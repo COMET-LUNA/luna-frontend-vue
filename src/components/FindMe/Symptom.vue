@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
 import SymptomList from "../../data/body_locations_symptoms.json";
 import { symptomLocationDict } from "../../composables";
 
@@ -13,9 +13,9 @@ let showError = ref(false);
 
 const props = defineProps({
   symptoms: {
-    type: Array
-  }
-})
+    type: Array,
+  },
+});
 
 const frequencyList = [
   "Once a Day",
@@ -62,10 +62,28 @@ function bundleSymptom() {
     showModal.value = false;
   }
 }
+
+function toggleLabels() {
+  popoverList.map((el) => {
+    el.toggle();
+  });
+}
+
+var popoverTriggerList = [];
+var popoverList: any[] = [];
+
+onMounted(() => {
+  popoverTriggerList = [].slice.call(
+    document.querySelectorAll('[data-bs-toggle="popover"]')
+  );
+  popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+    // @ts-ignore
+    return new bootstrap.Popover(popoverTriggerEl);
+  });
+});
 </script>
 
 <template>
-
   <div className="row">
     <div className="col-5 px-0">
       <div className="mb-3">
@@ -75,6 +93,9 @@ function bundleSymptom() {
           src="../../assets/images/bodyparts/head.png"
           alt="head"
           @click="bodyClicker('head')"
+          data-bs-toggle="popover"
+          data-bs-trigger="manual"
+          title="Head, Throat, and Neck"
         />
       </div>
       <div className="mb-3 row">
@@ -84,6 +105,9 @@ function bundleSymptom() {
             src="../../assets/images/bodyparts/l-arm.png"
             alt="larm"
             @click="bodyClicker('arms')"
+            data-bs-toggle="popover"
+            data-bs-trigger="manual"
+            title="Arms, and Shoulder"
           />
         </div>
         <div className="col-4 p-0">
@@ -93,6 +117,9 @@ function bundleSymptom() {
             src="../../assets/images/bodyparts/chest.png"
             alt="chest"
             @click="bodyClicker('chest')"
+            data-bs-toggle="popover"
+            data-bs-trigger="manual"
+            title="Chest and Back"
           />
           <img
             className="mb-3 mx-auto d-block cursor-pointer"
@@ -100,6 +127,9 @@ function bundleSymptom() {
             src="../../assets/images/bodyparts/abdomen.png"
             alt="abdomen"
             @click="bodyClicker('abdomen')"
+            data-bs-toggle="popover"
+            data-bs-trigger="manual"
+            title="Abdomen, Pelvis, and Buttocks"
           />
           <img
             className="mb-3 mx-auto d-block cursor-pointer"
@@ -107,6 +137,9 @@ function bundleSymptom() {
             src="../../assets/images/bodyparts/legs.png"
             alt="legs"
             @click="bodyClicker('legs')"
+            data-bs-toggle="popover"
+            data-bs-trigger="manual"
+            title="Legs"
           />
         </div>
         <div className="col-4 p-0">
@@ -120,14 +153,23 @@ function bundleSymptom() {
         </div>
       </div>
       <div className="d-flex justify-content-center">
-        <button class="btn btn-primary">Toggle Labels</button>
+        <button class="btn btn-primary" @click="toggleLabels">
+          Toggle Labels
+        </button>
       </div>
     </div>
     <div className="col-7 px-0">
       <div class="me-5 mt-5">
         <h1>Input your symptoms</h1>
-        <p v-if="!showModal">First, <b class="text-primary">click on the body</b> part in the diagram where your symptoms are present; or select more <b class="text-primary">general symptoms in the button below</b></p>
-        <p v-if="showModal">Now, select your symptoms from the list and add addditional information about your symptoms.</p>
+        <p v-if="!showModal">
+          First, <b class="text-primary">click on the body</b> part in the
+          diagram where your symptoms are present; or select more
+          <b class="text-primary">general symptoms in the button below</b>
+        </p>
+        <p v-if="showModal">
+          Now, select your symptoms from the list and add addditional
+          information about your symptoms.
+        </p>
       </div>
       <button
         type="button"
