@@ -28,6 +28,8 @@ function loginUser() {
       newWorkspace.user = res.data.userData;
       setWorkspace(newWorkspace);
       // window.location.href = "/";
+      localStorage.setItem('user', JSON.stringify(res.data.userData))
+      console.log(localStorage.getItem('user'))
       router.push('/')
     })
     .catch((e) => {

@@ -5,7 +5,6 @@ import Register from './views/Register.vue'
 import Doctors from './views/Doctors.vue'
 import Login from './views/Login.vue'
 
-
 const routes = [
     {
         path: '/',
@@ -37,6 +36,29 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+})
+
+const openRoutes = ['Login', 'Register']
+
+function canUserAccess(to: any) {
+  const user = localStorage.getItem('user')
+  console.log(user)
+  for (var route of openRoutes){
+    if (route == to.name){
+      return true
+    } else {
+      if (user !== null) {
+        return true
+      }
+    }
+  }
+  return false
+}
+
+router.beforeEach((to, from) => {
+  // canUserAccess() returns `true` or `false`
+  const canAccess = canUserAccess(to)
+  if (!canAccess) return '/login'
 })
 
 export default router
