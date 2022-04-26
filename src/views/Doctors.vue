@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { queryDoctors } from '../api';
 import { ref, reactive, onMounted } from 'vue'
-import { Doctor, PreferencesObject } from '../types';
+import { Doctor, PreferencesObject, Recommendation } from '../types';
+import doctor_data from '../data/doctors.json'
 import { assertForStatement } from '@babel/types';
-import Recommendations from '../components/Doctors/Recommendations.vue'
+import DoctorRecommendations from '../components/Doctors/DoctorRecommendations.vue'
 import PreferencesBar from '../components/Doctors/PreferencesBar.vue';
 import Navbar from '../components/Navbar.vue';
 import { useLoadDoctor } from '../composables';
@@ -33,20 +34,17 @@ const preferences = reactive<PreferencesObject>({
 })
 const loaded = ref(false)
 const symptoms = ref([""])
-const firstRecommendations = ref<Array<Doctor>>()
-const secondRecommendations = ref<Array<Doctor>>()
-const specRecommendations = ref<Array<Doctor>>()
 const diagnosis = ref<String>("")
 const { user } = useWorkspace()
 
-onMounted(async () => {
-    const query = reactive(await useLoadDoctor(preferences, symptoms));
-    firstRecommendations.value = query.firstRecommendations
-    secondRecommendations.value = query.secondRecommendations
-    specRecommendations.value = query.specRecommendations
-    diagnosis.value = query.diagnosis
-    loaded.value = true
-})
+// onMounted(async () => {
+//     const query = reactive(await useLoadDoctor(preferences, symptoms.value));
+//     firstRecommendations.value = query.firstRecommendations
+//     secondRecommendations.value = query.secondRecommendations
+//     specRecommendations.value = query.specRecommendations
+//     diagnosis.value = query.diagnosis
+//     loaded.value = true
+// })
 console.log(user)
 </script>
 
@@ -57,10 +55,10 @@ console.log(user)
             <PreferencesBar :specialization = "'Specialization'" :diagnosis= "diagnosis.toString()"/>
         </div>
         <div class="col-9 m-0 p-0">
-            <Recommendations 
-            :firstRecommendations="firstRecommendations" 
-            :secondRecommendations="secondRecommendations" 
-            :specRecommendations="specRecommendations"
+            <DoctorRecommendations 
+            :firstRecommendations="doctor_data" 
+            :secondRecommendations="doctor_data" 
+            :specRecommendations="doctor_data"
             />
         </div>
     </div>

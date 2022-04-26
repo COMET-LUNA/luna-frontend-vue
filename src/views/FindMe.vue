@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar.vue'
 import Symptom from '../components/FindMe/Symptom.vue'
 import Preference from '../components/FindMe/Preference.vue'
 import Review from '../components/FindMe/Review.vue'
+import { useRouter } from 'vue-router'
 
 import { useWorkspace, setWorkspace, symptomLocationDict } from '../composables';
 
@@ -80,8 +81,7 @@ function saveToWorkspace() {
 }
 
 function findMe() {
-  alert("findme")
-  // Redirect to doctor
+  router.push('/doctors')
 }
 
 function toggleIntro() {

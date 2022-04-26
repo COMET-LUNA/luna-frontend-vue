@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import DoctorRow from './DoctorRow.vue'
-import { PropType } from 'vue'
+import { PropType, ref } from 'vue'
 import { Doctor } from '../../types'
 
 const props = defineProps({
@@ -18,9 +18,9 @@ const props = defineProps({
     },
 })
 
-const {firstRecommendations, secondRecommendations, specRecommendations } = props
+const { firstRecommendations, secondRecommendations, specRecommendations } = props
 
-var showSpec = false
+const showSpec = ref(false)
 </script>
 
 <template>

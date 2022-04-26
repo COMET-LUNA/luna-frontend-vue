@@ -1,5 +1,17 @@
+<script setup lang="ts">
+import "../css/Home.css"
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function findMe(){
+    router.push('/findme')
+}
+
+</script>
+
 <template>
-   <div class="col-sm-6 p-0 m-0">
+   <div class="col-sm-6 p-0 m-0" @click="findMe">
         <div class="col-card card ms-2">
             <div class="icon">
                 <i class="fa-solid fa-magnifying-glass fa-2xl"></i>
@@ -15,7 +27,3 @@
         </div>
     </div>
 </template>
-
-<script scoped lang="ts">
-    import "../css/Home.css"
-</script>
