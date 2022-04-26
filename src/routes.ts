@@ -47,7 +47,7 @@ function canUserAccess(to: any) {
     if (route == to.name){
       return true
     } else {
-      if (user !== null) {
+      if (user !== null) { // Checks if user is authenticated
         return true
       }
     }
