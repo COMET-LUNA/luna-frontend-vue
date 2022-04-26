@@ -3,13 +3,20 @@ import HomeCardComponent from "../components/Home/HomeCardComponent.vue";
 import FindMeComponent from "../components/Home/FindMeComponent.vue";
 import HistoryCardComponent from "../components/Home/HistoryCardComponent.vue";
 import Navbar from "../components/Navbar.vue";
-import { useWorkspace } from "../composables";
+import { useWorkspace, setWorkspace } from "../composables";
+import Footer from "../components/Footer.vue";
 
 const workspace = useWorkspace();
+let userText = localStorage.getItem('user')
+let user = {}
 
-const user = workspace.user;
-
-console.log(user);
+if(userText != null) {
+  user = JSON.parse(userText)
+  const newWorkspace = useWorkspace();
+  newWorkspace.user = user
+  setWorkspace(newWorkspace);
+  console.log(user)
+} 
 </script>
 
 <style scoped>
@@ -48,4 +55,5 @@ console.log(user);
       <HistoryCardComponent class="col-5 mx-auto" />
     </div>
   </div>
+      <Footer />  
 </template>
