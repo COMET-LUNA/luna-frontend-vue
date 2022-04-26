@@ -99,7 +99,7 @@ function toggleIntro() {
   <div className="row"></div>
   <div className="row min-vh-100 mx-0">
     <div className="min-vh-100 col-3 pt-5 ps-5 sidebar">
-      <div className="w-100 d-flex mb-4">
+      <div className="w-100 d-flex mb-4 cursor-pointer" @click="$router.push('/')">
         <img
           className="me-3"
           src="../assets/images/moon-full-moon-icon.png"
