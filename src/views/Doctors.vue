@@ -10,7 +10,6 @@ import PreferencesBar from '../components/Doctors/PreferencesBar.vue';
 import Navbar from '../components/Navbar.vue';
 
 const loaded = ref(false)
-const diagnosis = ref("")
 const preferences = ref<PreferencesObject>()
 const specialization = ref("")
 const firstRecommendations = ref([])
@@ -20,8 +19,8 @@ const showSpec = ref(false)
 
 onMounted(async() => {
     const data = await useLoadDoctor()
-    console.log(data)
     
+    specialization.value = data.diagnosis[0].Specialisation[0].Name
     firstRecommendations.value = data.firstRecommendations
     secondRecommendations.value = data.secondRecommendations
     specRecommendations.value = data.specRecommendations
@@ -32,8 +31,7 @@ onMounted(async() => {
     <Navbar/>
     <div class="row m-0 p-0">
         <div class="col-3 m-0 p-0">
-            <PreferencesBar :specialization = "'Specialization'" :diagnosis= "'Hello'"/>
-            {{ data }}
+            <PreferencesBar :specialization="specialization"/>
         </div>
         <div class="col-9 m-0 p-0">
             <div class='mt-4'>

@@ -11,6 +11,7 @@ import {
   setWorkspace,
   symptomLocationDict,
 } from "../composables";
+import { useRouter } from 'vue-router'
 
 var sideData = ref([
   {
@@ -32,6 +33,8 @@ var sideData = ref([
 
 let showIntro = ref(true);
 const progressIndex = ref(0);
+const router = useRouter()
+console.log(router)
 
 function nextPage() {
   if (progressIndex.value < sideData.value.length) {
@@ -83,7 +86,7 @@ function saveToWorkspace() {
   setWorkspace(newWorkspace);
 }
 
-function findMe() {
+function findMe(){
   router.push('/doctors')
 }
 

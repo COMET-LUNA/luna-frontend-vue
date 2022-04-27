@@ -2,43 +2,18 @@
 import { reactive, ref } from 'vue'
 import { PreferencesObject } from '../../types';
 import Options from '../../data/options.json' 
+import { useWorkspace, sexDict, agesDict, experiencesDict, pricesDict } from '../../composables'
 
-const props = defineProps({
+const editmode = ref(false)
+// const {locations, genders, prices, ages, experiences } = Options
+const { preferences, symptoms } = useWorkspace()
+
+defineProps({
     specialization: {
         type: String,
-        required: true,
-    },
-    diagnosis: {
-        type: String,
-        required: true,
-    },
-})
-
-const preferences = reactive<PreferencesObject>({
-    location: {
-        val: "",
-        act: "",
-    },
-    gender: {
-        val: "",
-        act: "",
-    },
-    price: {
-        val: "",
-        act: "",
-    },
-    experience: {
-        val: 0,
-        act: "",
-    },
-    age: {
-        val: 0,
-        act: "",
+        required: true
     }
 })
-const editmode = false
-const {locations, genders, prices, ages, experiences} = Options
-const symptoms = ref<Array<string>>([""])
 
 </script>
 
@@ -47,12 +22,12 @@ const symptoms = ref<Array<string>>([""])
         <div class="container rounded-3 p-3 m-3 text-white" style="backgroundColor: #3B4AD0">
             <h5>Symptoms</h5>
             <div>
-            Based on your Symptoms, the best specialization to contact is: <span className="fw-bold">{{specialization}}</span>
+                Based on your Symptoms, the best specialization to contact is: <span className="fw-bold">{{specialization}}</span>
             </div>
-            <!-- <div v-for="symptom in symptoms" :key="symptom.ID">
+            <div v-for="symptom in symptoms" :key="symptom.symptomid">
                 <div>{{ symptom.symptom.Name }}</div>
                 <div>{{ symptom.location }}</div>
-            </div> -->
+            </div>
         </div>
         <div class="container rounded-3 p-3 m-3 text-white" style="backgroundColor: #3B4AD0">
             <h5>Preferences</h5>
@@ -60,27 +35,27 @@ const symptoms = ref<Array<string>>([""])
                 <tbody>
                 <tr>
                     <th>Doctor Location</th>
-                    <td>{{preferences.location.act}}</td>
+                    <td>{{ preferences.location }}</td>
                 </tr>
                 <tr>
                     <th>Doctor Age</th>
-                    <td>{{preferences.age.act}}</td>
+                    <td>{{ agesDict[preferences.age] }}</td>
                 </tr>
                 <tr>
                     <th>Doctor Experience</th>
-                    <td>{{preferences.experience.act}}</td>
+                    <td>{{ experiencesDict[preferences.experience] }}</td>
                 </tr>
                 <tr>
                     <th>Consultation Fee</th>
-                    <td>{{preferences.price.act}}</td>
+                    <td>{{ pricesDict[preferences.price] }}</td>
                 </tr>
                 <tr>
                     <th>Doctor Sex</th>
-                    <td>{{preferences.gender.act}}</td>
+                    <td>{{ preferences.sex }}</td>
                 </tr>
                 </tbody>
             </table> 
-            <table class="table table-borderless text-white" v-else>
+            <!-- <table class="table table-borderless text-white" v-else>
                 <tbody>
                 <tr>
                     <th>Doctor Location</th>
@@ -138,7 +113,7 @@ const symptoms = ref<Array<string>>([""])
                     </td>
                 </tr>
                 </tbody>
-            </table> 
+            </table>  -->
         </div>
     </div>
     
