@@ -6,6 +6,7 @@ export const initWorkspace = () => {
     workspace = {
         hello: "hello",
         user: {},
+        history: {},
         symptoms: [],
         preferences: {},
         registration: {

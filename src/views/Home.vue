@@ -7,16 +7,61 @@ import { useWorkspace, setWorkspace } from "../composables";
 import Footer from "../components/Footer.vue";
 
 const workspace = useWorkspace();
-let userText = localStorage.getItem('user')
-let user = {}
+let userText = localStorage.getItem("user");
+let user = {};
 
-if(userText != null) {
-  user = JSON.parse(userText)
+// let history = workspace.history
+let history = [
+  {
+    date: "10/03/21",
+    specialization: "Gastroentrology",
+    symptoms: [
+      {
+        symptom: {
+          HasRedFlag: true,
+          Name: "Chest pain",
+          ID: 17,
+          HealthSymptomLocationIDs: [15],
+          ProfName: "",
+          Synonyms: [],
+        },
+        location: "chest",
+        symptomid: 17,
+        frequency: "Once a Day",
+        details: "",
+      },
+      {
+        symptom: {
+          HasRedFlag: false,
+          Name: "Abdominal pain",
+          ID: 10,
+          HealthSymptomLocationIDs: [16],
+          ProfName: "",
+          Synonyms: [" Stomach ache"],
+        },
+        location: "abdomen",
+        symptomid: 10,
+        frequency: "Once a Week",
+        details: "It has a sharp pain.",
+      },
+    ],
+    preference: {
+      location: "Manila City",
+      age: -1,
+      experience: 20,
+      price: "100-500",
+      sex: "Female",
+    },
+  },
+];
+
+if (userText != null) {
+  user = JSON.parse(userText);
   const newWorkspace = useWorkspace();
-  newWorkspace.user = user
+  newWorkspace.user = user;
   setWorkspace(newWorkspace);
-  console.log(user)
-} 
+  console.log(user);
+}
 </script>
 
 <style scoped>
@@ -52,8 +97,8 @@ if(userText != null) {
       <!-- Find Me Card -->
       <FindMeComponent class="col-5 mx-auto" />
       <!-- History Card -->
-      <HistoryCardComponent class="col-5 mx-auto" />
+      <HistoryCardComponent class="col-5 mx-auto" :history="history" />
     </div>
   </div>
-      <Footer />  
+  <Footer />
 </template>

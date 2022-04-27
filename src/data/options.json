@@ -36,14 +36,14 @@
             "act": "45 years or older"
         },
         {
-            "val": -1,
+            "val": 0,
             "act": "No preference"
         }
     ],
 
     "experiences" : [
         {
-            "val": 0,
+            "val": 1,
             "act": "Less than 10 years of experience"
         },
         {
@@ -55,7 +55,7 @@
             "act": "20 or more years of experience"
         },
         {
-            "val":-1,
+            "val":0,
             "act": "No Preference"
         }
     ],
