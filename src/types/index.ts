@@ -21,30 +21,26 @@ export interface PreferencesObject {
     },
 }
 
-export interface OptionsObject {
-
-}
-
 export interface Symptom {
     ID: number,
     Name: string,
 }
 
 export interface Doctor {
-    sex: string,
-    name: string,
-    specialization: string,
-    price_range: string,
+    birthyear: number,
     clinic_address: string,
     clinic_location: string,
     med_school: string,
-    birthyear: number,
-    startyear: number
+    name: string,
+    price_range: string,
+    sex: string,
+    specialization: string,
+    startyear: number,
 }
 
 export interface Recommendations {
     firstRecommendations: Array<Doctor>,
     secondRecommendations: Array<Doctor>,
     specRecommendations: Array<Doctor>,
-    diagnosis: String,
+    diagnosis: Array,
 }

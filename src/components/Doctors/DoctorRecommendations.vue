@@ -5,15 +5,15 @@ import { Doctor } from '../../types'
 
 const props = defineProps({
     firstRecommendations: {
-        type: Object as PropType<Array<Doctor>>,
+        type: Object as PropType<Array>,
         required: false
     },
     secondRecommendations: {
-        type: Object as PropType<Array<Doctor>>,
+        type: Object as PropType<Array>,
         required: false
     },
     specRecommendations: {
-        type: Object as PropType<Array<Doctor>>,
+        type: Object as PropType<Array>,
         required: false
     },
 })

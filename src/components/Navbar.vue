@@ -3,9 +3,7 @@ import { ref } from "vue";
 import router from "../routes";
 import { useWorkspace } from "../composables";
 
-const workspace = useWorkspace();
-
-const user = workspace.user;
+const user = JSON.parse(localStorage.getItem('user'))
 
 function logout() {
   localStorage.removeItem('user')
@@ -48,7 +46,7 @@ function logout() {
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/register">Register</a>
+          <a class="nav-link" href="/register">Register</a> 
         </li>
         <li class="nav-item mx-3">
           <a class="nav-link" href="/doctors">Doctors</a>
