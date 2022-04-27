@@ -3,9 +3,11 @@ import { ref } from "vue";
 import router from "../routes";
 import { useWorkspace } from "../composables";
 
-const workspace = useWorkspace();
-
-const user = workspace.user;
+let user:any = null
+const userText = localStorage.getItem('user')
+if (userText !== null) {
+  user = JSON.parse(userText)
+}
 
 function logout() {
   localStorage.removeItem('user')
@@ -38,21 +40,21 @@ function logout() {
         LUNA
       </a>
       <ul class="navbar-nav mx-auto mt-2 mt-lg-0">
-        <li class="nav-item active mx-3">
+        <!-- <li class="nav-item active mx-3">
           <a class="nav-link" href="/">Home</a>
-        </li>
+        </li> -->
         <li class="nav-item mx-3">
           <a class="nav-link" href="/findMe">Find Me a Doctor</a>
         </li>
-        <li class="nav-item">
+        <!-- <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/register">Register</a>
-        </li>
-        <li class="nav-item mx-3">
+        </li> -->
+        <!-- <li class="nav-item mx-3">
           <a class="nav-link" href="/doctors">Doctors</a>
-        </li>
+        </li> -->
       </ul>
       <div class="dropdown">
         <button
@@ -68,8 +70,8 @@ function logout() {
           class="dropdown-menu dropdown-menu-end"
           aria-labelledby="dropdownMenuButton"
         >
-          <li><h6 class="dropdown-header">Account</h6></li>
-          <li><a class="dropdown-item" href="#">Change account details</a></li>
+          <!-- <li><h6 class="dropdown-header">Account</h6></li>
+          <li><a class="dropdown-item" href="#">Change account details</a></li> -->
           <li><h6 class="dropdown-header">Settings</h6></li>
           <li><a class="dropdown-item" @click="logout">Log out</a></li>
         </ul>
