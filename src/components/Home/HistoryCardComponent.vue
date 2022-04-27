@@ -1,3 +1,42 @@
+<script setup lang="ts">
+import { PropType } from 'vue';
+import { useWorkspace, setWorkspace } from "../../composables";
+import router from '../../routes';
+
+
+interface SideData {
+  date: String,
+  specialization: String,
+  symptoms: Array<any>,
+  preference: any
+}
+
+const props = defineProps({
+  history: {
+   type: Array as PropType<Array<SideData>>,
+   default: () => [],
+   required: true
+ }
+})
+
+function printPage(index: any) {
+  const newWorkspace = useWorkspace();
+  newWorkspace.history = props.history[index];
+  setWorkspace(newWorkspace);
+  console.log(props.history[index])
+  router.push('/print')
+}
+</script>
+
+<style scoped>
+.modal-body {
+  background-color: rgb(191, 183, 236);
+}
+.modal-content {
+  width: 800px;
+}
+</style>
+
 <template>
   <div class="p-0 m-0" data-bs-toggle="modal" data-bs-target="#exampleModal">
     <!-- MODAL -->
@@ -32,24 +71,26 @@
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    1. 10/03/21
-                    <button>Download Doctors Version</button>
+                <tr v-for="(item, index) in props.history">
+                                    <td>
+                    {{item.date}}
+                    <button class="btn btn-secondary" @click="printPage(index)">Download Doctors Version</button>
                   </td>
                   <td>
-                    1. Chest pain <br />
-                    2. Abdominal pain <br />
+                    <span v-for="symptom in item.symptoms"> 
+                    {{symptom.symptom.Name}}
+                      <br/>
+                    </span>
 
                     Recommended Specialization:
-                    <strong>Gastroenterology</strong>
+                    <strong>{{item.specialization}}</strong>
                   </td>
                   <td>
-                    Sex: Female <br />
-                    Age Range: No preference <br />
-                    Location: Manila City <br />
-                    Price: Less than PHP 500.00 <br />
-                    Years in Practice: 20 or more years of experience
+                    Sex: {{item.preference.sex}} <br />
+                    Age Range: {{item.preference.age}} <br />
+                    Location: {{item.preference.location}} <br />
+                    Price: {{item.preference.price}} <br />
+                    Years in Practice: {{item.preference.experience}}
                   </td>
                 </tr>
               </tbody>
@@ -84,12 +125,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.modal-body {
-  background-color: rgb(191, 183, 236);
-}
-.modal-content {
-  width: 800px;
-}
-</style>
