@@ -1,59 +1,18 @@
 <script setup lang="ts">
+import {ref} from 'vue'
 import HomeCardComponent from "../components/Home/HomeCardComponent.vue";
 import FindMeComponent from "../components/Home/FindMeComponent.vue";
 import HistoryCardComponent from "../components/Home/HistoryCardComponent.vue";
 import Navbar from "../components/Navbar.vue";
 import { useWorkspace, setWorkspace } from "../composables";
 import Footer from "../components/Footer.vue";
+import axios from 'axios'
+import { onMounted } from "vue";
 
 const workspace = useWorkspace();
 let userText = localStorage.getItem("user");
-let user = {};
-
-// let history = workspace.history
-let history = [
-  {
-    date: "10/03/21",
-    specialization: "Gastroentrology",
-    symptoms: [
-      {
-        symptom: {
-          HasRedFlag: true,
-          Name: "Chest pain",
-          ID: 17,
-          HealthSymptomLocationIDs: [15],
-          ProfName: "",
-          Synonyms: [],
-        },
-        location: "chest",
-        symptomid: 17,
-        frequency: "Once a Day",
-        details: "",
-      },
-      {
-        symptom: {
-          HasRedFlag: false,
-          Name: "Abdominal pain",
-          ID: 10,
-          HealthSymptomLocationIDs: [16],
-          ProfName: "",
-          Synonyms: [" Stomach ache"],
-        },
-        location: "abdomen",
-        symptomid: 10,
-        frequency: "Once a Week",
-        details: "It has a sharp pain.",
-      },
-    ],
-    preference: {
-      location: "Manila City",
-      age: -1,
-      experience: 20,
-      price: "100-500",
-      sex: "Female",
-    },
-  },
-];
+let user:any = {};
+let history = ref([])
 
 if (userText != null) {
   user = JSON.parse(userText);
@@ -62,6 +21,14 @@ if (userText != null) {
   setWorkspace(newWorkspace);
   console.log(user);
 }
+
+onMounted(async () => {
+  let email = user.personal.emailAddress
+  const res = await axios.post('http://localhost:3030/history', {
+    email
+  })
+  history.value = res.data.historyData
+})
 </script>
 
 <style scoped>
