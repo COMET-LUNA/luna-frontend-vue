@@ -9,7 +9,7 @@
         <span>Made with ❤️ by the Three Musketeers.</span>
       </div>
       <div class="col-5 me-auto">
-        <h3>Sitemap</h3>
+        <!-- <h3>Sitemap</h3> -->
       </div>
     </div>
   </div>
