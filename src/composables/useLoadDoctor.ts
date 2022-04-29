@@ -1,17 +1,19 @@
 import { reactive } from 'vue'
 import { PreferencesObject, Symptom, Recommendations} from '../types';
 import { useWorkspace } from '../composables'
-import { Ref } from 'vue';
+import { Ref, unref, ref } from 'vue';
 import axios from 'axios';
 
 // preferencesRef: Ref<PreferencesObject>, symptomsRef: Array
-import { ref } from 'vue'
+
 
 export async function useLoadDoctor() {
-    const { symptoms, preference } = useWorkspace()
+    const { symptoms, preferences } = useWorkspace()
 
-    console.log(symptoms)
-    console.log(preference)
+    const symptomsUnwrap = unref(symptoms)
+    const preferencesUnwrap = unref(preferences)
+    console.log(unref(symptomsUnwrap))
+    console.log(preferencesUnwrap)
     // const query = {
     //     querySymptoms: 
     // }
@@ -29,7 +31,7 @@ export async function useLoadDoctor() {
     
     try {
         const resp = await axios.post('http://localhost:3030/findMe', query)
-        console.log(resp.data)
+        // console.log(resp.data)
         return resp.data
     } catch (err) {
         console.log(err)

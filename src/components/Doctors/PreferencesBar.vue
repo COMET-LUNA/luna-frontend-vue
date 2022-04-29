@@ -19,39 +19,40 @@ defineProps({
 
 <template>
     <div class="sticky-top">
-        <div class="container rounded-3 p-3 m-3 text-white" style="backgroundColor: #3B4AD0">
-            <h5>Symptoms</h5>
-            <div>
-                Based on your Symptoms, the best specialization to contact is: <span className="fw-bold">{{specialization}}</span>
-            </div>
-            <div v-for="symptom in symptoms" :key="symptom.symptomid">
-                <div>{{ symptom.symptom.Name }}</div>
-                <div>{{ symptom.location }}</div>
-            </div>
+        <div class="container rounded-3 p-3 mt-3 text-white text-start" style="backgroundColor: #3B4AD0">
+            <h4 class="text-center fw-bold">Symptoms</h4>
+                Based on your Symptoms:
+            <ul>
+                <li class="fw-bold" v-for="symptom in symptoms" :key="symptom.symptomid">
+                    {{ symptom.symptom.Name }}
+                </li>
+            </ul>
+            The best specialization we found for you is: 
+            <div class="fs-5 fw-bold text-center">{{specialization}}</div>
         </div>
-        <div class="container rounded-3 p-3 m-3 text-white" style="backgroundColor: #3B4AD0">
-            <h5>Preferences</h5>
+        <div class="container rounded-3 p-3 mt-3 text-white" style="backgroundColor: #3B4AD0">
+            <h4 class="text-center fw-bold">Preferences</h4>
             <table class="table table-borderless text-white" v-if="!editmode">
                 <tbody>
                 <tr>
-                    <th>Doctor Location</th>
-                    <td>{{ preferences.location }}</td>
+                    <th class="text-start">Doctor Location</th>
+                    <td class="text-end">{{ preferences.location }}</td>
                 </tr>
                 <tr>
-                    <th>Doctor Age</th>
-                    <td>{{ agesDict[preferences.age] }}</td>
+                    <th class="text-start">Doctor Age</th>
+                    <td class="text-end">{{ agesDict[preferences.age] }}</td>
                 </tr>
                 <tr>
-                    <th>Doctor Experience</th>
-                    <td>{{ experiencesDict[preferences.experience] }}</td>
+                    <th class="text-start">Doctor Experience</th>
+                    <td class="text-end">{{ experiencesDict[preferences.experience] }}</td>
                 </tr>
                 <tr>
-                    <th>Consultation Fee</th>
-                    <td>{{ pricesDict[preferences.price] }}</td>
+                    <th class="text-start">Consultation Fee</th>
+                    <td class="text-end">{{ pricesDict[preferences.price] }}</td>
                 </tr>
                 <tr>
-                    <th>Doctor Sex</th>
-                    <td>{{ preferences.sex }}</td>
+                    <th class="text-start">Doctor Sex</th>
+                    <td class="text-end">{{ preferences.sex }}</td>
                 </tr>
                 </tbody>
             </table> 
