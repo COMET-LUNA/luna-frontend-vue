@@ -2,6 +2,7 @@
 import { onMounted } from "vue";
 import { useWorkspace } from "../composables";
 import { symptomLocationDict, sexDict } from "../composables";
+import moment from "moment";
 
 const workspace = useWorkspace();
 let history = workspace.history;
@@ -19,7 +20,7 @@ function printPage() {
   }
 
   .font-in-print {
-    font-size: .7em
+    font-size: 0.7em;
   }
 }
 </style>
@@ -35,10 +36,7 @@ function printPage() {
       <h3 class="my-auto ms-3">LUNA</h3>
     </div>
     <h1 class="mt-5">Find Me Doctor Report</h1>
-    <button
-      class="btn btn-primary hide-in-print"
-      @click="printPage"
-    >
+    <button class="btn btn-primary hide-in-print" @click="printPage">
       Print this Page or Save as PDF
     </button>
     <div class="mt-5">
@@ -68,7 +66,14 @@ function printPage() {
           </tr>
           <tr>
             <th>Date Processed</th>
-            <td>{{ history.date }}</td>
+            <td>
+              {{
+                // @ts-ignore
+                moment(new Date(history.date)).format(
+                  "dddd MMMM Do YYYY, h:mm:ss a"
+                )
+              }}
+            </td>
           </tr>
         </tbody>
       </table>
@@ -109,14 +114,18 @@ function printPage() {
         and will require doctor's verification.</em
       >
 
-      <div class="fw-bold mt-3">Recommended Specialist: (based on the most proabable disease from ApiMedic)</div>
+      <div class="fw-bold mt-3">
+        Recommended Specialist: (based on the most proabable disease from
+        ApiMedic)
+      </div>
       {{ history.diagnosis[0].Specialisation[0].Name }}
 
       <div class="mt-3 mb-5">
         <span class="fw-bold">Probable Diseases:</span>
-              <div v-for="item in history.diagnosis">
-        {{item.Issue.Name}} (ICD: {{item.Issue.IcdName}}) - {{item.Issue.Accuracy}} %
-      </div>
+        <div v-for="item in history.diagnosis">
+          {{ item.Issue.Name }} (ICD: {{ item.Issue.IcdName }}) -
+          {{ item.Issue.Accuracy }} %
+        </div>
       </div>
     </div>
   </div>

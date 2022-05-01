@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { PropType } from "vue";
 import { useWorkspace, setWorkspace } from "../../composables";
-import router from '../../routes';
-
+import router from "../../routes";
+import moment from "moment";
 
 interface SideData {
-  date: String,
-  diagnosis: any,
-  symptoms: Array<any>,
-  preferences: any
+  date: String;
+  diagnosis: any;
+  symptoms: Array<any>;
+  preferences: any;
 }
 
 const props = defineProps({
   history: {
-   type: Array as PropType<Array<SideData>>,
-   default: () => [],
-   required: true
- }
-})
+    type: Array as PropType<Array<SideData>>,
+    default: () => [],
+    required: true,
+  },
+});
 
-console.log(props.history)
+console.log(props.history);
 
 function printPage(index: any) {
   const newWorkspace = useWorkspace();
   newWorkspace.history = props.history[index];
   setWorkspace(newWorkspace);
-  console.log(props.history[index])
-  router.push('/print')
+  console.log(props.history[index]);
+  router.push("/print");
 }
 </script>
 
@@ -74,25 +74,34 @@ function printPage(index: any) {
               </thead>
               <tbody>
                 <tr v-for="(item, index) in props.history">
-                                    <td>
-                    {{item.date}}
-                    <button class="btn btn-secondary" @click="printPage(index)">Download Doctors Version</button>
+                  <td>
+                    {{
+                      // @ts-ignore
+                      moment(new Date(item.date)).format(
+                        "dddd MMMM Do YYYY, h:mm:ss a"
+                      )
+                    }}
+                    <button class="btn btn-secondary" @click="printPage(index)">
+                      Download Doctors Version
+                    </button>
                   </td>
                   <td>
-                    <span v-for="symptom in item.symptoms"> 
-                    {{symptom.symptom.Name}}
-                      <br/>
+                    <span v-for="symptom in item.symptoms">
+                      {{ symptom.symptom.Name }}
+                      <br />
                     </span>
 
                     Recommended Specialization:
-                    <strong>{{item.diagnosis[0].Specialisation[0].Name}}</strong>
+                    <strong>{{
+                      item.diagnosis[0].Specialisation[0].Name
+                    }}</strong>
                   </td>
                   <td>
-                    Sex: {{item.preferences.sex}} <br />
-                    Age Range: {{item.preferences.age}} <br />
-                    Location: {{item.preferences.location}} <br />
-                    Price: {{item.preferences.price}} <br />
-                    Years in Practice: {{item.preferences.experience}}
+                    Sex: {{ item.preferences.sex }} <br />
+                    Age Range: {{ item.preferences.age }} <br />
+                    Location: {{ item.preferences.location }} <br />
+                    Price: {{ item.preferences.price }} <br />
+                    Years in Practice: {{ item.preferences.experience }}
                   </td>
                 </tr>
               </tbody>
