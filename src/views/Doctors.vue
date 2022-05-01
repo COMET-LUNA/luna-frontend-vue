@@ -24,6 +24,10 @@ onMounted(async() => {
     secondRecommendations.value = data.secondRecommendations
     specRecommendations.value = data.specRecommendations
 })
+
+function showModal(doctor) {
+    console.log(doctor)
+}
 </script>
 
 <template>
@@ -35,7 +39,7 @@ onMounted(async() => {
         <div class="col-9">
             <div class='mt-4'>
                 <h3 class='mb-3 text-start'>Doctors that matches all your preferences and best specialization</h3>
-                <DoctorRow v-for="doctor, index in firstRecommendations" 
+                <DoctorRow @click="showModal(doctor)" v-for="doctor, index in firstRecommendations" 
                     :doctor="doctor" 
                     :isFirst="true" 
                     :key="index"

@@ -1,7 +1,7 @@
 import { reactive } from 'vue'
 import { PreferencesObject, Symptom, Recommendations} from '../types';
 import { useWorkspace } from '../composables'
-import { Ref, unref, ref } from 'vue';
+import { Ref, unref, ref, toRaw } from 'vue';
 import axios from 'axios';
 
 // preferencesRef: Ref<PreferencesObject>, symptomsRef: Array
@@ -10,24 +10,22 @@ import axios from 'axios';
 export async function useLoadDoctor() {
     const { symptoms, preferences } = useWorkspace()
 
-    const symptomsUnwrap = unref(symptoms)
-    const preferencesUnwrap = unref(preferences)
-    console.log(unref(symptomsUnwrap))
-    console.log(preferencesUnwrap)
-    // const query = {
-    //     querySymptoms: 
-    // }
+    const querySymptoms = symptoms.value.map((symptom) => {
+            return symptom.symptomid
+    }).join(',');
+    const user = JSON.parse(localStorage.getItem("user"))
 
     const query = {
-        "querySymptoms": "10,17",
-        "usersex": "Male",
-        "useryearbirth": 1950,
-        "location": "Quezon City",
-        "age": 46,
-        "experience": 20,
-        "price": "1001-2000",
-        "sex": "Female"
+        querySymptoms: querySymptoms,
+        usersex: user.personal.sex,
+        useryearbirth: user.personal.birthYear,
+        location: preferences.value.location,
+        age: preferences.value.age,
+        experience: preferences.value.experience,
+        price: preferences.value.price,
+        sex: preferences.value.sex
     }
+    console.log(query)
     
     try {
         const resp = await axios.post('http://localhost:3030/findMe', query)
