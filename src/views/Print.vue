@@ -29,7 +29,7 @@ function printPage() {
   <div class="container text-start font-in-print">
     <div class="d-flex mt-3" @click="$router.push('/')">
       <img
-        src="../assets/images/moon-full-moon-icon.png"
+        src="/assets/images/moon-full-moon-icon.png"
         alt="luna-logo"
         width="50"
       />

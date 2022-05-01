@@ -90,7 +90,7 @@ onMounted(() => {
         <img
           className="mx-auto d-block cursor-pointer"
           ref="{this.headRef}"
-          src="../../assets/images/bodyparts/head.png"
+          src="/assets/images/bodyparts/head.png"
           alt="head"
           @click="bodyClicker('head')"
           data-bs-toggle="popover"
@@ -102,7 +102,7 @@ onMounted(() => {
         <div className="col-4 p-0">
           <img
             className="float-end d-block cursor-pointer"
-            src="../../assets/images/bodyparts/l-arm.png"
+            src="/assets/images/bodyparts/l-arm.png"
             alt="larm"
             @click="bodyClicker('arms')"
             data-bs-toggle="popover"
@@ -114,7 +114,7 @@ onMounted(() => {
           <img
             className="mb-3 mx-auto d-block cursor-pointer"
             ref="{this.chestRef}"
-            src="../../assets/images/bodyparts/chest.png"
+            src="/assets/images/bodyparts/chest.png"
             alt="chest"
             @click="bodyClicker('chest')"
             data-bs-toggle="popover"
@@ -124,7 +124,7 @@ onMounted(() => {
           <img
             className="mb-3 mx-auto d-block cursor-pointer"
             ref="{this.abdomenRef}"
-            src="../../assets/images/bodyparts/abdomen.png"
+            src="/assets/images/bodyparts/abdomen.png"
             alt="abdomen"
             @click="bodyClicker('abdomen')"
             data-bs-toggle="popover"
@@ -134,7 +134,7 @@ onMounted(() => {
           <img
             className="mb-3 mx-auto d-block cursor-pointer"
             ref="{this.legsRef}"
-            src="../../assets/images/bodyparts/legs.png"
+            src="/assets/images/bodyparts/legs.png"
             alt="legs"
             @click="bodyClicker('legs')"
             data-bs-toggle="popover"
@@ -146,7 +146,7 @@ onMounted(() => {
           <img
             className="d-block cursor-pointer"
             ref="{this.armRef}"
-            src="../../assets/images/bodyparts/r-arm.png"
+            src="/assets/images/bodyparts/r-arm.png"
             alt="rarm"
             @click="bodyClicker('arms')"
           />

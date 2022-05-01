@@ -104,7 +104,7 @@ function toggleIntro() {
       <div className="w-100 d-flex mb-4 cursor-pointer" @click="$router.push('/')">
         <img
           className="me-3"
-          src="../assets/images/moon-full-moon-icon.png"
+          src="/assets/images/moon-full-moon-icon.png"
           alt="logo"
           width="75"
         />

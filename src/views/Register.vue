@@ -100,7 +100,7 @@ function register() {
   <div className="row vh-100 p-0 m-0">
     <div className='vh-100 col-3 p-5 sidebar'>
       <div className='w-100 d-flex mb-4'>
-          <img className='me-3' src="../assets/images/moon-full-moon-icon.png" alt='logo' width="75"/>
+          <img className='me-3' src="/assets/images/moon-full-moon-icon.png" alt='logo' width="75"/>
           <span className="sidebar-title">LUNA</span>
       </div>
       <Sidebar :sideData="sideData" />

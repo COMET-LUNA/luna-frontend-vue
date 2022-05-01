@@ -32,7 +32,7 @@ function logout() {
     <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
       <a class="navbar-brand ms-3" href="/">
         <img
-          src="../assets/images/moon-full-moon-icon.png"
+          src="/assets/images/moon-full-moon-icon.png"
           className="me-3"
           alt="logo"
           style="width: 50px"

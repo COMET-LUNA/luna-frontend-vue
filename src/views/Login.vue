@@ -54,7 +54,7 @@ function loginUser() {
         <div className="row">
           <div className="col-6 d-flex flex-column justify-content-center">
             <img
-              src="../assets/images/moon-full-moon-icon.png"
+              src="/assets/images/moon-full-moon-icon.png"
               alt="LUNA Logo"
               width="150"
             />

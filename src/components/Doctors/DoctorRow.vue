@@ -16,7 +16,7 @@ const props = defineProps({
 const { doctor, isFirst } = props
 
 function getImageUrl() {
-    return doctor.sex == 'Male' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
+    return doctor.sex == 'Female' ? '/assets/images/doctor_pic_female.jpeg' : '/assets/images/doctor_pic_male.png';
 }
 
 </script>
