@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { PreferencesObject, Symptom, Recommendations} from '../types';
+import { PreferencesObject, Symptom} from '../types';
 import { useWorkspace } from '../composables'
 import { Ref, unref, ref } from 'vue';
 import axios from 'axios';
