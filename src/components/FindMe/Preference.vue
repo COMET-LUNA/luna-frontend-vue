@@ -81,7 +81,7 @@ function bundlePreference() {
                     {{item.act}}
                 </button>
 
-                <div>
+                <div class="mb-5">
                     <button type="button" class="btn btn-secondary me-3" @click="$emit('prev-page')">BACK</button>
                     <button type="button" class="btn btn-primary" @click="bundlePreference">NEXT</button>
                 </div>
