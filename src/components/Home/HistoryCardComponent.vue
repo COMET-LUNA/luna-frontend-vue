@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { PropType } from "vue";
-import { useWorkspace, setWorkspace } from "../../composables";
+import { useWorkspace, setWorkspace, sexDict, agesDict, experiencesDict, pricesDict } from "../../composables";
 import router from "../../routes";
 import moment from "moment";
+
 
 interface SideData {
   date: String;
@@ -98,10 +99,10 @@ function printPage(index: any) {
                   </td>
                   <td>
                     Sex: {{ item.preferences.sex }} <br />
-                    Age Range: {{ item.preferences.age }} <br />
+                    Age Range: {{ agesDict[item.preferences.age] }} <br />
                     Location: {{ item.preferences.location }} <br />
-                    Price: {{ item.preferences.price }} <br />
-                    Years in Practice: {{ item.preferences.experience }}
+                    Price: {{ pricesDict[item.preferences.price] }} <br />
+                    Years in Practice: {{ experiencesDict[item.preferences.experience] }}
                   </td>
                 </tr>
               </tbody>

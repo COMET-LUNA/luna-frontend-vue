@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-import { useWorkspace, setWorkspace, symptomLocationDict } from '../../composables';
+import { useWorkspace, setWorkspace, symptomLocationDict, sexDict, agesDict, experiencesDict, pricesDict } from '../../composables';
 
 
 const workspace = useWorkspace()
@@ -43,15 +43,15 @@ const props = defineProps({
                     </tr>
                     <tr>
                     <th>Doctor Age</th>
-                    <td>{{preferences.age}}</td>
+                    <td>{{agesDict[preferences.age]}}</td>
                     </tr>
                     <tr>
                     <th>Doctor Experience</th>
-                    <td>{{preferences.experience}}</td>
+                    <td>{{experiencesDict[preferences.experience]}}</td>
                     </tr>
                     <tr>
                     <th>Consultation Fee</th>
-                    <td>{{preferences.price}}</td>
+                    <td>{{pricesDict[preferences.price]}}</td>
                     </tr>
                     <tr>
                     <th>Doctor Sex</th>
