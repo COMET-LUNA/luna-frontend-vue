@@ -119,8 +119,8 @@ function showModal(doctor) {
                     </div>
                     <div class="mt-3 row">
                         <span class="fw-bold">Contact Information</span>
-                        <span>+63-123-4567</span>
-                        <span>email@gmail.com</span>
+                        <span><i class="fa-solid fa-phone-alt px-3"></i>{{modalDoctor.contact_number}}</span>
+                        <span><i class="fa-solid fa-envelope px-3"></i>{{modalDoctor.email}}</span>
                     </div>
                 </div>
             </div>

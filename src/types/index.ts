@@ -30,6 +30,8 @@ export interface Doctor {
     birthyear: number,
     clinic_address: string,
     clinic_location: string,
+    contact_number: string,
+    email: string,
     med_school: string,
     name: string,
     price_range: string,
