@@ -2,11 +2,12 @@
 // logic
 import { ref, unref, onMounted } from 'vue'
 import { Doctor, PreferencesObject } from '../types';
-import { useLoadDoctor, usePreferences } from '../composables';
+import { useLoadDoctor, useWorkspace } from '../composables';
 // components
 import DoctorRow from '../components/Doctors/DoctorRow.vue'
 import PreferencesBar from '../components/Doctors/PreferencesBar.vue';
 import Navbar from '../components/Navbar.vue';
+import axios from 'axios';
 
 const loading = ref(true)
 const preferences = ref<PreferencesObject>()
@@ -18,8 +19,34 @@ const showSpec = ref(false)
 const modalDoctor = ref<Doctor>({})
 const showDoctor = ref(false)
 
+const workspace = useWorkspace()
+
+async function addToHistory(diagnosis: any) {
+  const userText = localStorage.getItem('user')
+  let email = ""
+  if (userText !== null) {
+    const user = JSON.parse(userText)
+    email = user.personal.emailAddress
+  }
+
+  const {preferences, symptoms} = workspace
+  const prefVal = preferences.value
+  const symVal = symptoms.value
+  const historyObj = {
+    diagnosis,
+    preferences: prefVal,
+    symptoms: symVal,
+    email
+  }
+  console.log('DATA', historyObj)
+
+  const res = await axios.post(import.meta.env.VITE_BACKEND_URL+'addHistory', historyObj)
+  console.log(res)
+}
+
 onMounted(async() => {
     const data = await useLoadDoctor()
+    addToHistory(data.diagnosis)
     
     specialization.value = data.diagnosis[0].Specialisation[0].Name
     firstRecommendations.value = data.firstRecommendations

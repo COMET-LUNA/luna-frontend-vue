@@ -17,11 +17,15 @@ function printPage() {
   .hide-in-print {
     display: none;
   }
+
+  .font-in-print {
+    font-size: .7em
+  }
 }
 </style>
 
 <template>
-  <div class="container text-start">
+  <div class="container text-start font-in-print">
     <div class="d-flex mt-3" @click="$router.push('/')">
       <img
         src="../assets/images/moon-full-moon-icon.png"
@@ -101,15 +105,19 @@ function printPage() {
     <div class="mt-5">
       <h3>Initial Diagnosis</h3>
       <em
-        >This diagnosis was taken from ApiMedic. This is not the final diagnosis
+        >This diagnosis was taken from ApiMedic. This is not a final diagnosis
         and will require doctor's verification.</em
       >
 
-      <div class="fw-bold mt-3">Recommended Specialist:</div>
-      {{ history.specialization }}
+      <div class="fw-bold mt-3">Recommended Specialist: (based on the most proabable disease from ApiMedic)</div>
+      {{ history.diagnosis[0].Specialisation[0].Name }}
 
-      <div class="fw-bold mt-3">Probable Diseases:</div>
-      PUT IT HERE
+      <div class="mt-3 mb-5">
+        <span class="fw-bold">Probable Diseases:</span>
+              <div v-for="item in history.diagnosis">
+        {{item.Issue.Name}} (ICD: {{item.Issue.IcdName}}) - {{item.Issue.Accuracy}} %
+      </div>
+      </div>
     </div>
   </div>
 </template>

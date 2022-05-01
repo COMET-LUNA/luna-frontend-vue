@@ -39,10 +39,3 @@ export interface Doctor {
     specialization: string,
     startyear: number,
 }
-
-export interface Recommendations {
-    firstRecommendations: Array<Doctor>,
-    secondRecommendations: Array<Doctor>,
-    specRecommendations: Array<Doctor>,
-    diagnosis: Array,
-}

@@ -6,9 +6,9 @@ import router from '../../routes';
 
 interface SideData {
   date: String,
-  specialization: String,
+  diagnosis: any,
   symptoms: Array<any>,
-  preference: any
+  preferences: any
 }
 
 const props = defineProps({
@@ -18,6 +18,8 @@ const props = defineProps({
    required: true
  }
 })
+
+console.log(props.history)
 
 function printPage(index: any) {
   const newWorkspace = useWorkspace();
@@ -83,14 +85,14 @@ function printPage(index: any) {
                     </span>
 
                     Recommended Specialization:
-                    <strong>{{item.specialization}}</strong>
+                    <strong>{{item.diagnosis[0].Specialisation[0].Name}}</strong>
                   </td>
                   <td>
-                    Sex: {{item.preference.sex}} <br />
-                    Age Range: {{item.preference.age}} <br />
-                    Location: {{item.preference.location}} <br />
-                    Price: {{item.preference.price}} <br />
-                    Years in Practice: {{item.preference.experience}}
+                    Sex: {{item.preferences.sex}} <br />
+                    Age Range: {{item.preferences.age}} <br />
+                    Location: {{item.preferences.location}} <br />
+                    Price: {{item.preferences.price}} <br />
+                    Years in Practice: {{item.preferences.experience}}
                   </td>
                 </tr>
               </tbody>

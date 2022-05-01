@@ -1,5 +1,5 @@
 import { reactive } from 'vue'
-import { PreferencesObject, Symptom, Recommendations} from '../types';
+import { PreferencesObject, Symptom} from '../types';
 import { useWorkspace } from '../composables'
 import { Ref, unref, ref, toRaw } from 'vue';
 import axios from 'axios';
@@ -28,7 +28,7 @@ export async function useLoadDoctor() {
     console.log(query)
     
     try {
-        const resp = await axios.post('http://localhost:3030/findMe', query)
+        const resp = await axios.post(import.meta.env.VITE_BACKEND_URL+'findMe', query)
         // console.log(resp.data)
         return resp.data
     } catch (err) {

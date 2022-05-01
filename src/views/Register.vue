@@ -72,7 +72,7 @@ function register() {
   // add register logic here
   let userData = workspace.registration
   axios.post(
-      'http://localhost:3030/register',
+      import.meta.env.VITE_BACKEND_URL+'register',
       {
         userData
       }

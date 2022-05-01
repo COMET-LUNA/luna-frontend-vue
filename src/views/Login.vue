@@ -18,8 +18,10 @@ let login = ref({
 
 function loginUser() {
     loading.value = true
+    const url = import.meta.env.VITE_BACKEND_URL+"login"
+    console.log(import.meta.env)
   axios
-    .post("http://localhost:3030/login", {
+    .post(url, {
       ...login.value,
     })
     .then((res) => {
@@ -95,7 +97,7 @@ function loginUser() {
 
             <div className="d-flex p-0">
               <i className="me-2">Don't have an account?</i>
-              <a href="/register">Register an account</a>
+              <a @click="$router.push('/register')">Register an account</a>
             </div>
           </div>
         </div>
