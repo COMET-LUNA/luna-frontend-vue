@@ -59,6 +59,10 @@ function showModal(doctor) {
     modalDoctor.value = unref(doctor)
     showDoctor.value = true
 }
+
+function getImageUrl() {
+    return doctor.sex == 'Male' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
+}
 </script>
 
 <style src="../css/FindMe.css"></style>
@@ -126,7 +130,7 @@ function showModal(doctor) {
                 <div class="modal-body text-start">
                     <div class="row">
                         <div class="col-4">
-                            <img src="../images/doctor_pic_female.jpg" style="width: 100px"/>
+                            <img :src="getImageUrl()" style="width: 100px"/>
                         </div>
                         <div class="col-8">
                             <div class="d-flex row">

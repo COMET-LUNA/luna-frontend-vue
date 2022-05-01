@@ -14,12 +14,19 @@ const props = defineProps({
 })
 
 const { doctor, isFirst } = props
+
+function getImageUrl() {
+    return doctor.sex == 'Male' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
+}
+
 </script>
 
 <template>
      <div class="row mb-2 cursor-pointer hover-effect-grey rounded-3">
         <div class="col-1">
-        <img alt="doctor_pic" style="width:50px"/>
+            <img :src="getImageUrl()"
+                alt="doctor_pic" 
+                style="width:50px"/>
         </div>
         <div class='col-4 ps-4'>
             <span class="d-flex h-100 align-items-center">Dr. {{doctor.name}}
