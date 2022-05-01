@@ -24,7 +24,7 @@ if (userText != null) {
 
 onMounted(async () => {
   let email = user.personal.emailAddress
-  const res = await axios.post('http://localhost:3030/history', {
+  const res = await axios.post(import.meta.env.VITE_BACKEND_URL+'history', {
     email
   })
   history.value = res.data.historyData

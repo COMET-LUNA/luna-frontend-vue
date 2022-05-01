@@ -18,8 +18,10 @@ let login = ref({
 
 function loginUser() {
     loading.value = true
+    const url = import.meta.env.VITE_BACKEND_URL+"login"
+    console.log(import.meta.env)
   axios
-    .post("http://localhost:3030/login", {
+    .post(url, {
       ...login.value,
     })
     .then((res) => {

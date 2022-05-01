@@ -30,7 +30,7 @@ export async function useLoadDoctor() {
     }
     
     try {
-        const resp = await axios.post('http://localhost:3030/findMe', query)
+        const resp = await axios.post(import.meta.env.VITE_BACKEND_URL+'findMe', query)
         // console.log(resp.data)
         return resp.data
     } catch (err) {

@@ -38,7 +38,7 @@ async function addToHistory(diagnosis: any) {
   }
   console.log('DATA', historyObj)
 
-  const res = await axios.post('http://localhost:3030/addHistory', historyObj)
+  const res = await axios.post(import.meta.env.VITE_BACKEND_URL+'addHistory', historyObj)
   console.log(res)
 }
 
