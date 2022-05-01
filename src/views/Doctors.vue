@@ -16,6 +16,7 @@ const firstRecommendations = ref([])
 const secondRecommendations = ref([])
 const specRecommendations = ref([])
 const showSpec = ref(false)
+// @ts-ignore
 const modalDoctor = ref<Doctor>({})
 const showDoctor = ref(false)
 
