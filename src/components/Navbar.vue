@@ -44,7 +44,7 @@ function logout() {
           <a class="nav-link" href="/">Home</a>
         </li> -->
         <li class="nav-item mx-3">
-          <a class="nav-link" href="/findMe">Find Me a Doctor</a>
+          <a class="nav-link" @click="$router.push('/findMe')">Find Me a Doctor</a>
         </li>
         <!-- <li class="nav-item">
           <a class="nav-link" href="/login">Login</a>

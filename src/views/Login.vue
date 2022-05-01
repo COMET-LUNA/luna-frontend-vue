@@ -97,7 +97,7 @@ function loginUser() {
 
             <div className="d-flex p-0">
               <i className="me-2">Don't have an account?</i>
-              <a href="/register">Register an account</a>
+              <a @click="$router.push('/register')">Register an account</a>
             </div>
           </div>
         </div>
