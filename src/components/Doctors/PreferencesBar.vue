@@ -6,7 +6,14 @@ import { useWorkspace, sexDict, agesDict, experiencesDict, pricesDict } from '..
 
 const editmode = ref(false)
 // const {locations, genders, prices, ages, experiences } = Options
-const { preferences, symptoms } = useWorkspace()
+let { preferences, symptoms } = useWorkspace()
+
+if ( symptoms.length == 0) {
+    symptoms = JSON.parse(localStorage.getItem("symptoms"))
+    preferences = JSON.parse(localStorage.getItem("preferences"))
+    console.log(symptoms)
+    console.log(preferences)
+} 
 
 defineProps({
     specialization: {

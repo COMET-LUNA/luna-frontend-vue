@@ -45,14 +45,29 @@ async function addToHistory(diagnosis: any) {
 }
 
 onMounted(async() => {
-    const data = await useLoadDoctor()
-    addToHistory(data.diagnosis)
-    
-    specialization.value = data.diagnosis[0].Specialisation[0].Name
-    firstRecommendations.value = data.firstRecommendations
-    secondRecommendations.value = data.secondRecommendations
-    specRecommendations.value = data.specRecommendations
-    loading.value = false
+    const {symptoms, preferences} = useWorkspace()
+    if ( symptoms.length == 0 ) {
+        const data = JSON.parse(localStorage.getItem("recommendations"))
+        specialization.value = data.diagnosis[0].Specialisation[0].Name
+        firstRecommendations.value = data.firstRecommendations
+        secondRecommendations.value = data.secondRecommendations
+        specRecommendations.value = data.specRecommendations
+        loading.value = false
+        console.log(data)
+    } else {
+        const data = await useLoadDoctor()
+        addToHistory(data.diagnosis)
+        
+        specialization.value = data.diagnosis[0].Specialisation[0].Name
+        firstRecommendations.value = data.firstRecommendations
+        secondRecommendations.value = data.secondRecommendations
+        specRecommendations.value = data.specRecommendations
+        loading.value = false
+        localStorage.setItem("recommendations", JSON.stringify(data))
+        localStorage.setItem("symptoms", JSON.stringify(unref(symptoms)))
+        localStorage.setItem("preferences", JSON.stringify(unref(preferences)))
+        console.log(localStorage.getItem("recommendations"))
+    }
 })
 
 function showModal(doctor) {
@@ -61,7 +76,7 @@ function showModal(doctor) {
 }
 
 function getImageUrl() {
-    return doctor.sex == 'Male' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
+    return modalDoctor.value.sex == 'Male' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
 }
 </script>
 
