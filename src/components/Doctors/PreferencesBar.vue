@@ -56,65 +56,6 @@ defineProps({
                 </tr>
                 </tbody>
             </table> 
-            <!-- <table class="table table-borderless text-white" v-else>
-                <tbody>
-                <tr>
-                    <th>Doctor Location</th>
-                    <td>
-                        <select class="form-select" id="location" v-bind="preferences.location">
-                            <option v-for="location in locations" 
-                                value="{{location.val}}">
-                                {{location.act}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Doctor Age</th>
-                    <td>
-                        <select class="form-select" id="age" v-bind="preferences.age">
-                            <option v-for="age in ages" 
-                                value="{{age.val}}">
-                                {{age.act}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Doctor Experience</th>
-                    <td>
-                        <select class="form-select" id="experience" v-bind="preferences.experience">
-                            <option v-for="experience in experiences" 
-                                value="{{experience.val}}">
-                                {{experience.act}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Doctor Fee</th>
-                    <td>
-                        <select class="form-select" id="price" v-bind="preferences.price">
-                            <option v-for="price in prices" 
-                                value="{{price.val}}">
-                                {{price.act}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                <tr>
-                    <th>Doctor Sex</th>
-                    <td>
-                        <select class="form-select" id="gender" v-bind="preferences.gender">
-                            <option v-for="gender in genders" 
-                                value="{{gender.val}}">
-                                {{gender.act}}
-                            </option>
-                        </select>
-                    </td>
-                </tr>
-                </tbody>
-            </table>  -->
         </div>
     </div>
     

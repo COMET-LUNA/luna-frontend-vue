@@ -17,9 +17,9 @@ const { doctor, isFirst } = props
 </script>
 
 <template>
-     <div class="row mb-2 cursor-pointer hover-effect-grey rounded-3"> <!-- Don't forget to add onclick for modal -->
+     <div class="row mb-2 cursor-pointer hover-effect-grey rounded-3">
         <div class="col-1">
-        <!-- <img src={doctor.sex === "Male" ? DoctorMale : DoctorFemale} alt="doctor_pic" style={{width: '50px'}}/> -->
+        <img alt="doctor_pic" style="width:50px"/>
         </div>
         <div class='col-4 ps-4'>
             <span class="d-flex h-100 align-items-center">Dr. {{doctor.name}}
