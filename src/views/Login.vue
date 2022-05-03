@@ -29,10 +29,9 @@ function loginUser() {
       const newWorkspace = useWorkspace();
       newWorkspace.user = res.data.userData;
       setWorkspace(newWorkspace);
-      // window.location.href = "/";
       localStorage.setItem('user', JSON.stringify(res.data.userData))
       console.log(localStorage.getItem('user'))
-      router.push('/')
+      window.location.href = "/";
     })
     .catch((e) => {
       const errorCode = e.response.data.errorCode;
