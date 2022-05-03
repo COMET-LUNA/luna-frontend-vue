@@ -77,7 +77,7 @@ function showModal(doctor) {
 }
 
 function getImageUrl() {
-    return modalDoctor.value.sex == 'Male' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
+    return modalDoctor.value.sex == 'Female' ? '../assets/images/doctor_pic_female.jpeg' : '../assets/images/doctor_pic_male.png';
 }
 
 function sortLocationally() {
