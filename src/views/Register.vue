@@ -78,9 +78,10 @@ function register() {
       }
     ).then((res) => {
       const newWorkspace = useWorkspace()
-      newWorkspace.user = res.data.userData
+      newWorkspace.user = res.data.userReturn
       setWorkspace(newWorkspace)
-      window.location.href = "/"
+      localStorage.setItem('user', JSON.stringify(res.data.userReturn))
+      window.location.href = "/";
     }).catch(e => {
       console.log(e.response.data.errorCode)
       switch(e.response.data.errorCode) {
