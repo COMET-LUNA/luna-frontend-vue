@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import SymptomList from "../../data/body_locations_symptoms.json";
-import { symptomLocationDict } from "../../composables";
+import { symptomLocationDict, useWorkspace } from "../../composables";
 
 const emit = defineEmits(["add-symptom", "next-page"]);
 
@@ -46,10 +46,21 @@ function bodyClicker(bodyPart: string) {
 }
 
 function bundleSymptom() {
-  if (false) {
-    // CHANGE TO CHECK IF SYMPTOM EXISTS
+  const workspace = useWorkspace();
+  const symptomInputs = workspace.symptoms
+  let ifSymptomExists = false
+
+  for (var item of props.symptoms) {
+    // @ts-ignore
+    if (item.symptomid == symptomObj.value.symptomid) {
+      ifSymptomExists = true
+    }
+  }
+
+  if (ifSymptomExists) {
     showError.value = true;
   } else {
+    showError.value = false
     let bundledSymptoms = Object.assign(
       { symptom: {}, location: "" },
       symptomObj.value
