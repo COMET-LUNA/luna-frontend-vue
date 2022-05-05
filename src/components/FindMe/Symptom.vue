@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import SymptomList from "../../data/body_locations_symptoms.json";
+import FullSymptomList from "../../data/body_symptoms.json"
 import { symptomLocationDict, useWorkspace } from "../../composables";
 
 const emit = defineEmits(["add-symptom", "next-page"]);
@@ -68,7 +69,7 @@ function bundleSymptom() {
       { symptom: {}, location: "" },
       symptomObj.value
     );
-    bundledSymptoms.symptom = symptomList.value.find(
+    bundledSymptoms.symptom = FullSymptomList.find(
       (item: { ID: number }) => item.ID === bundledSymptoms.symptomid
     );
     bundledSymptoms.location = bodySelected.value;

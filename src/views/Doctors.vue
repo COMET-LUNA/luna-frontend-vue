@@ -19,7 +19,7 @@ const showSpec = ref(false);
 // @ts-ignore
 const modalDoctor = ref<Doctor>({});
 const showDoctor = ref(false);
-const sortOrder = ref("Unsorted")
+const sortOrder = ref("Unsorted");
 
 const workspace = useWorkspace();
 
@@ -92,7 +92,7 @@ function getImageUrl() {
 }
 
 function sortLocationally() {
-  sortOrder.value = "Location"
+  sortOrder.value = "Location";
   specRecommendations.value.sort((a, b) => {
     return a.clinic_address.localeCompare(b.clinic_address);
   });
@@ -111,10 +111,10 @@ function sortAlphabetically(reverse) {
   if (reverse) {
     specRecommendations.value.sort(sortLastname);
     specRecommendations.value.reverse();
-    sortOrder.value = "Last Name Alphabetically (Z-A)"
+    sortOrder.value = "Last Name Alphabetically (Z-A)";
   } else {
     specRecommendations.value.sort(sortLastname);
-    sortOrder.value = "Last Name Alphabetically (A-Z)"
+    sortOrder.value = "Last Name Alphabetically (A-Z)";
   }
 }
 
@@ -122,7 +122,11 @@ function sortSpecialization() {
   specRecommendations.value.sort((a, b) => {
     return a.specialization.localeCompare(b.specialization);
   });
-  sortOrder.value = "Specialization"
+  sortOrder.value = "Specialization";
+}
+
+function searchDoctor() {
+  
 }
 </script>
 
@@ -144,56 +148,6 @@ function sortSpecialization() {
       </div>
     </div>
     <div class="col-9" v-else>
-      <div class="row mt-3">
-        <div class="col-6 d-flex align-items-center">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search Doctors"
-            aria-label="doctors"
-          />
-        </div>
-        <div class="col-6 d-flex justify-content-around align-items-center">
-          <span class="fw-bold">Sort Results by</span>
-          <!-- <button type="button" class="btn btn-outline-primary" @click="sortLocationally()">Location</button>
-                <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(false)">Alphabetically (A-Z)</button>
-                <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(true)">Alphabetically (Z-A)</button> -->
-          <div class="dropdown">
-            <button
-              class="btn btn-primary dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              {{sortOrder}}
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-              <li>
-                <a class="dropdown-item" @click="sortLocationally()"
-                  >Location</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" @click="sortAlphabetically(false)"
-                  >Last Name Alphabetically (A-Z)</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" @click="sortAlphabetically(true)"
-                  >Last Name Alphabetically (Z-A)</a
-                >
-              </li>
-              <li>
-                <a class="dropdown-item" @click="sortSpecialization()"
-                  >Specialization</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
       <div class="d-flex align-items-center mt-3">
         <span>
           <h5 class="me-3">Legend</h5>
@@ -236,6 +190,55 @@ function sortSpecialization() {
           Doctors who specialize in {{ specialization.join(", ") }}
         </h3>
         <div v-if="showSpec">
+          <div class="row my-3">
+            <div class="col-6 d-flex align-items-center">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Search Doctors"
+                aria-label="doctors"
+              />
+            </div>
+            <div class="col-6 d-flex justify-content-end align-items-center">
+              <span class="fw-bold me-5">Sort Results by</span>
+              <!-- <button type="button" class="btn btn-outline-primary" @click="sortLocationally()">Location</button>
+                <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(false)">Alphabetically (A-Z)</button>
+                <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(true)">Alphabetically (Z-A)</button> -->
+              <div class="dropdown">
+                <button
+                  class="btn btn-primary dropdown-toggle"
+                  type="button"
+                  id="dropdownMenuButton"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {{ sortOrder }}
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                  <li>
+                    <a class="dropdown-item" @click="sortLocationally()"
+                      >Location</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" @click="sortAlphabetically(false)"
+                      >Last Name Alphabetically (A-Z)</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" @click="sortAlphabetically(true)"
+                      >Last Name Alphabetically (Z-A)</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" @click="sortSpecialization()"
+                      >Specialization</a
+                    >
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
           <DoctorRow
             v-for="doctor in specRecommendations"
             :doctor="doctor"
