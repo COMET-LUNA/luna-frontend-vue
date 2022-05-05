@@ -40,9 +40,7 @@ function bodyClicker(bodyPart: string) {
   bodySelected.value = bodyPart;
   symptomList.value = SymptomList.filter(
     (item) => item.pid === bodyPart
-  )[0].symptoms.sort((a, b) =>
-    a.Name.localeCompare(b.Name, "fr", { ignorePunctuation: true })
-  ) as [];
+  )[0].symptomsSubgroups
 }
 
 function bundleSymptom() {
@@ -202,9 +200,11 @@ onMounted(() => {
                 aria-label="Floating label select example"
                 v-model="symptomObj.symptomid"
               >
-                <option v-for="(item, index) in symptomList" :value="item.ID">
-                  {{ item.Name }}
-                </option>
+                <optgroup v-for="subgroup in symptomList" :label="subgroup.subgroup">
+                  <option v-for="symptom in subgroup.symptoms" :value="symptom.ID">
+                    {{ symptom.Name }}
+                  </option>
+                </optgroup>
               </select>
               <label for="floatingSelect">Symptom</label>
             </div>
@@ -215,9 +215,9 @@ onMounted(() => {
                 aria-label="Floating label select example"
                 v-model="symptomObj.frequency"
               >
-                <option v-for="(item, index) in frequencyList">
-                  {{ item }}
-                </option>
+                  <option v-for="(item, index) in frequencyList">
+                    {{ item }}
+                  </option>
               </select>
               <label for="floatingSelect">Frequency</label>
             </div>
