@@ -39,9 +39,9 @@ const sexDict = {
 };
 
 const agesDict = {
-  30: "Younger than 30",
-  45: "30 to 45 years or older",
-  46: "45 years or older",
+  30: "30 to 39 years",
+  40: "40 to 49 years",
+  50: "50 years or older",
   0: "No preference",
 };
 

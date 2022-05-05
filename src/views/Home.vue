@@ -27,7 +27,7 @@ onMounted(async () => {
   const res = await axios.post(import.meta.env.VITE_BACKEND_URL+'history', {
     email
   })
-  history.value = res.data.historyData
+  history.value = res.data.historyData.sort((a, b) => (a.date < b.date) ? 1 : -1)
 })
 </script>
 

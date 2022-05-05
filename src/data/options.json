@@ -24,15 +24,15 @@
   "ages": [
     {
       "val": 30,
-      "act": "Younger than 30"
+      "act": "30 to 39 years old"
     },
     {
-      "val": 45,
-      "act": "30 to 45 years or older"
+      "val": 40,
+      "act": "40 to 49 years old"
     },
     {
-      "val": 46,
-      "act": "45 years or older"
+      "val": 50,
+      "act": "50 years or older"
     },
     {
       "val": 0,

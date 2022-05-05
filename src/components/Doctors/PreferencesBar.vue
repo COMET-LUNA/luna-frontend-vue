@@ -17,7 +17,7 @@ if ( symptoms.length == 0) {
 
 defineProps({
     specialization: {
-        type: String,
+        type: Array,
         required: true
     }
 })
@@ -29,13 +29,17 @@ defineProps({
         <div class="container rounded-3 p-3 mt-3 text-white text-start" style="backgroundColor: #3B4AD0">
             <h4 class="text-center fw-bold">Symptoms</h4>
                 Based on your Symptoms:
-            <ul>
+            <ul class="mb-3">
                 <li class="fw-bold" v-for="symptom in symptoms" :key="symptom.symptomid">
                     {{ symptom.symptom.Name }}
                 </li>
             </ul>
             The best specialization we found for you is: 
-            <div class="fs-5 fw-bold text-center">{{specialization}}</div>
+            <div class="fs-5 fw-bold text-center mb-3">{{specialization[0]}}</div>
+            The other specializations that could be appropriate as well:
+            <div v-for="(item, index) in specialization">
+              <li v-if="index != 0" class="fw-bold">{{item}}</li>
+            </div>
         </div>
         <div class="container rounded-3 p-3 mt-3 text-white" style="backgroundColor: #3B4AD0">
             <h4 class="text-center fw-bold">Preferences</h4>

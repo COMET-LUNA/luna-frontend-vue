@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted } from "vue";
 import { useWorkspace } from "../composables";
-import { symptomLocationDict, sexDict } from "../composables";
+import { symptomLocationDict, sexDict, bloodTypeDict } from "../composables";
 import moment from "moment";
 
 const workspace = useWorkspace();
@@ -75,6 +75,28 @@ function printPage() {
               }}
             </td>
           </tr>
+          <tr>
+            <th>Weight in Kilograms</th>
+            <td>{{user.medical.weightKg}} kg</td>
+          </tr>
+          <tr>
+            <th>Height in Centimeters</th>
+            <td>{{user.medical.heightCm}} cm</td>
+          </tr>
+          <tr>
+            <th>Blood Type</th>
+            <td>{{bloodTypeDict[user.medical.bloodType]}}</td>
+          </tr>
+          <tr>
+            <th>Diet</th>
+            <td v-if="user.medical.diet">{{user.medical.diet}}</td>
+            <td v-else>No dietary restrictions.</td>
+          </tr>
+          <tr>
+            <th>Known Illnesses</th>
+            <td v-if="user.medical.illnesses">{{user.medical.illnesses}}</td>
+            <td v-else>No known illnesses.</td>
+          </tr>
         </tbody>
       </table>
     </div>
@@ -85,7 +107,9 @@ function printPage() {
           <tr>
             <td>Symptom</td>
             <td>Frequency</td>
+            <td>Start Date (Chronicity)</td>
             <td>Addtional Details</td>
+            <td>Previous Symptom?</td>
           </tr>
         </thead>
         <tbody>
@@ -97,12 +121,14 @@ function printPage() {
               }}</span>
             </td>
             <td>{{ item.frequency }}</td>
+            <td>{{ item.start_date }}</td>
             <td>
               <span class="text-secondary" v-if="item.details === ''"
                 >No additonal details inputted by the user.</span
               >
               {{ item.details }}
             </td>
+            <td>{{ item.isPrevious }}</td>
           </tr>
         </tbody>
       </table>

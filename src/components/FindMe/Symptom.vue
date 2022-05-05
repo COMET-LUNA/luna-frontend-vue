@@ -10,6 +10,7 @@ let bodySelected = ref("");
 let symptomList: any = ref([]);
 let showModal = ref(false);
 let showError = ref(false);
+let showAdded = ref(false)
 
 const props = defineProps({
   symptoms: {
@@ -26,8 +27,10 @@ const frequencyList = [
 
 let symptomObj = ref({
   symptomid: -1,
+  start_date: "",
   frequency: "",
   details: "",
+  isPrevious: false,
 });
 
 function bodyClicker(bodyPart: string) {
@@ -35,6 +38,8 @@ function bodyClicker(bodyPart: string) {
   symptomObj.value.symptomid = -1;
   symptomObj.value.frequency = "";
   symptomObj.value.details = "";
+  symptomObj.value.start_date = "";
+  symptomObj.value.isPrevious = false
 
   showModal.value = true;
   bodySelected.value = bodyPart;
@@ -45,20 +50,20 @@ function bodyClicker(bodyPart: string) {
 
 function bundleSymptom() {
   const workspace = useWorkspace();
-  const symptomInputs = workspace.symptoms
-  let ifSymptomExists = false
+  const symptomInputs = workspace.symptoms;
+  let ifSymptomExists = false;
 
   for (var item of props.symptoms) {
     // @ts-ignore
     if (item.symptomid == symptomObj.value.symptomid) {
-      ifSymptomExists = true
+      ifSymptomExists = true;
     }
   }
 
   if (ifSymptomExists) {
     showError.value = true;
   } else {
-    showError.value = false
+    showError.value = false;
     let bundledSymptoms = Object.assign(
       { symptom: {}, location: "" },
       symptomObj.value
@@ -69,7 +74,13 @@ function bundleSymptom() {
     bundledSymptoms.location = bodySelected.value;
     emit("add-symptom", bundledSymptoms);
     showModal.value = false;
+    showAdded.value = true;
+    dismissAdded()
   }
+}
+
+async function dismissAdded() {
+  setTimeout(() => showAdded.value = false, 5000) // Keeps Show Added Modal for 5 seconds
 }
 
 function toggleLabels() {
@@ -187,6 +198,11 @@ onMounted(() => {
       >
         Skin, Joints and General Symptoms
       </button>
+      <div class="me-5 mt-3">
+        <div v-if="showAdded" class="alert alert-success" role="alert">
+          Symptom has been added to the list!
+        </div>
+      </div>
       <div v-if="showModal" class="card mt-4 me-5">
         <div class="card-body">
           <div className="">
@@ -222,6 +238,14 @@ onMounted(() => {
               <label for="floatingSelect">Frequency</label>
             </div>
             <div class="form mb-4">
+              <label for="floatingSelect">Start Date</label>
+              <input
+                type="date"
+                class="start-date-select w-100"
+                v-model="symptomObj.start_date"
+              />
+            </div>
+            <div class="form mb-4">
               <label for="floatingTextarea">More Details</label>
               <textarea
                 v-model="symptomObj.details"
@@ -231,19 +255,42 @@ onMounted(() => {
               >
               </textarea>
             </div>
+            <div class="form-check mb-4">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                v-model="symptomObj.isPrevious"
+                id="formCheckChecked"
+              />
+              <label class="form-check-label" for="formCheckChecked"
+                >Have you experienced this symptom before?</label
+              >
+            </div>
             <div v-if="showError" class="alert alert-danger" role="alert">
               Symptom already inputted to the list. To make changes, remove the
               symptom from the list first!
             </div>
             <button
+              v-if="props.symptoms.length === 0"
               :disabled="
-                symptomObj.symptomid === -1 || symptomObj.frequency == ''
+                symptomObj.symptomid === -1 || symptomObj.frequency == '' || symptomObj.start_date == ''
               "
               type="button"
               class="btn btn-primary"
               @click="bundleSymptom"
             >
-              Add Symptom
+              Add symptom
+            </button>
+            <button
+              v-else
+              :disabled="
+                symptomObj.symptomid === -1 || symptomObj.frequency == '' || symptomObj.start_date == ''
+              "
+              type="button"
+              class="btn btn-primary"
+              @click="bundleSymptom"
+            >
+              Add another symptom
             </button>
           </div>
         </div>
