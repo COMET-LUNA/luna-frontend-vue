@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { onMounted, ref } from "vue";
 import SymptomList from "../../data/body_locations_symptoms.json";
-import FullSymptomList from "../../data/body_symptoms.json"
+import FullSymptomList from "../../data/body_symptoms.json";
 import { symptomLocationDict, useWorkspace } from "../../composables";
+import moment from 'moment'
 
 const emit = defineEmits(["add-symptom", "next-page"]);
 
@@ -11,7 +12,7 @@ let bodySelected = ref("");
 let symptomList: any = ref([]);
 let showModal = ref(false);
 let showError = ref(false);
-let showAdded = ref(false)
+let showAdded = ref(false);
 
 const props = defineProps({
   symptoms: {
@@ -20,10 +21,12 @@ const props = defineProps({
 });
 
 const frequencyList = [
-  "Once a Day",
-  "Once a Week",
-  "Twice a Week",
-  "Consistent",
+  "Constantly",
+  "Intermittent",
+  "Once every few hours",
+  "Once every few days",
+  "Once a week",
+  "I'll specify in the More Details text field below.",
 ];
 
 let symptomObj = ref({
@@ -40,13 +43,13 @@ function bodyClicker(bodyPart: string) {
   symptomObj.value.frequency = "";
   symptomObj.value.details = "";
   symptomObj.value.start_date = "";
-  symptomObj.value.isPrevious = false
+  symptomObj.value.isPrevious = false;
 
   showModal.value = true;
   bodySelected.value = bodyPart;
   symptomList.value = SymptomList.filter(
     (item) => item.pid === bodyPart
-  )[0].symptomsSubgroups
+  )[0].symptomsSubgroups;
 }
 
 function bundleSymptom() {
@@ -76,12 +79,12 @@ function bundleSymptom() {
     emit("add-symptom", bundledSymptoms);
     showModal.value = false;
     showAdded.value = true;
-    dismissAdded()
+    dismissAdded();
   }
 }
 
 async function dismissAdded() {
-  setTimeout(() => showAdded.value = false, 5000) // Keeps Show Added Modal for 5 seconds
+  setTimeout(() => (showAdded.value = false), 5000); // Keeps Show Added Modal for 5 seconds
 }
 
 function toggleLabels() {
@@ -199,11 +202,6 @@ onMounted(() => {
       >
         Skin, Joints and General Symptoms
       </button>
-      <div class="me-5 mt-3">
-        <div v-if="showAdded" class="alert alert-success" role="alert">
-          Symptom has been added to the list!
-        </div>
-      </div>
       <div v-if="showModal" class="card mt-4 me-5">
         <div class="card-body">
           <div className="">
@@ -217,13 +215,21 @@ onMounted(() => {
                 aria-label="Floating label select example"
                 v-model="symptomObj.symptomid"
               >
-                <optgroup v-for="subgroup in symptomList" :label="subgroup.subgroup">
-                  <option v-for="symptom in subgroup.symptoms" :value="symptom.ID">
+                <optgroup
+                  v-for="subgroup in symptomList"
+                  :label="subgroup.subgroup"
+                >
+                  <option
+                    v-for="symptom in subgroup.symptoms"
+                    :value="symptom.ID"
+                  >
                     {{ symptom.Name }}
                   </option>
                 </optgroup>
               </select>
-              <label for="floatingSelect">Symptom</label>
+              <label for="floatingSelect"
+                >Symptom<span class="text-danger">* </span></label
+              >
             </div>
             <div class="form-floating mb-4">
               <select
@@ -232,18 +238,23 @@ onMounted(() => {
                 aria-label="Floating label select example"
                 v-model="symptomObj.frequency"
               >
-                  <option v-for="(item, index) in frequencyList">
-                    {{ item }}
-                  </option>
+                <option v-for="(item, index) in frequencyList">
+                  {{ item }}
+                </option>
               </select>
-              <label for="floatingSelect">Frequency</label>
+              <label for="floatingSelect"
+                >Frequency<span class="text-danger">* </span></label
+              >
             </div>
             <div class="form mb-4">
-              <label for="floatingSelect">Start Date</label>
+              <label for="floatingSelect"
+                >Start Date<span class="text-danger">* </span></label
+              >
               <input
                 type="date"
                 class="start-date-select w-100"
                 v-model="symptomObj.start_date"
+                :max="moment().format('YYYY-MM-DD')"
               />
             </div>
             <div class="form mb-4">
@@ -271,28 +282,37 @@ onMounted(() => {
               Symptom already inputted to the list. To make changes, remove the
               symptom from the list first!
             </div>
-            <button
-              v-if="props.symptoms.length === 0"
-              :disabled="
-                symptomObj.symptomid === -1 || symptomObj.frequency == '' || symptomObj.start_date == ''
-              "
-              type="button"
-              class="btn btn-primary"
-              @click="bundleSymptom"
-            >
-              Add symptom
-            </button>
-            <button
-              v-else
-              :disabled="
-                symptomObj.symptomid === -1 || symptomObj.frequency == '' || symptomObj.start_date == ''
-              "
-              type="button"
-              class="btn btn-primary"
-              @click="bundleSymptom"
-            >
-              Add another symptom
-            </button>
+            <div class="px-2 row">
+              <button
+                v-if="props.symptoms.length === 0"
+                :disabled="
+                  symptomObj.symptomid === -1 ||
+                  symptomObj.frequency == '' ||
+                  symptomObj.start_date == ''
+                "
+                type="button"
+                class="btn btn-primary"
+                @click="bundleSymptom"
+              >
+                Add symptom
+              </button>
+              <button
+                v-else
+                :disabled="
+                  symptomObj.symptomid === -1 ||
+                  symptomObj.frequency == '' ||
+                  symptomObj.start_date == ''
+                "
+                type="button"
+                class="btn btn-primary"
+                @click="bundleSymptom"
+              >
+                Add another symptom
+              </button>
+              <span class="mt-3"
+                ><span class="text-danger">* </span> - Required fields</span
+              >
+            </div>
           </div>
         </div>
       </div>
@@ -305,6 +325,11 @@ onMounted(() => {
         >
           Next
         </button>
+      </div>
+      <div class="me-5 mt-3">
+        <div v-if="showAdded" class="alert alert-success" role="alert">
+          Symptom has been added to the list!
+        </div>
       </div>
     </div>
   </div>
