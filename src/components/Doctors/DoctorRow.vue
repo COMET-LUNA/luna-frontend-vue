@@ -10,10 +10,14 @@ const props = defineProps({
     isFirst: {
         type: Boolean,
         required: false
+    },
+    isSpec: {
+        type: Boolean,
+        required: false
     }
 })
 
-const { doctor, isFirst } = props
+const { doctor, isFirst, isSpec } = props
 
 function getImageUrl() {
     return doctor.sex == 'Female' ? '/assets/images/doctor_pic_female.jpeg' : '/assets/images/doctor_pic_male.png';
@@ -30,7 +34,7 @@ function getImageUrl() {
         </div>
         <div class='col-4 ps-4'>
             <span class="d-flex h-100 align-items-center">Dr. {{doctor.name}}
-                <span class="badge bg-primary ms-2">{{isFirst ? "1st" : "2nd"}}</span>
+                <span v-if="isSpec == false" class="badge bg-primary ms-2">{{isFirst ? "1st" : "2nd"}}</span>
             </span>
         </div>
         <div class='col-3'><span class="d-flex h-100 align-items-center">{{doctor.specialization}}</span></div>

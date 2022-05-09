@@ -53,7 +53,7 @@ onMounted(async () => {
   const { symptoms, preferences } = useWorkspace();
   if (symptoms.length == 0) {
     const data = JSON.parse(localStorage.getItem("recommendations"));
-    specialization.value = data.szpecialization.map((x) => x.Name);
+    specialization.value = data.specialization.map((x) => x.Name);
     firstRecommendations.value = data.firstRecommendations.sort((a, b) => {
       return a.name < b.name;
     });
@@ -162,9 +162,12 @@ function searchDoctor() {
         >
       </div>
       <div class="mt-4">
-        <h3 class="mb-3 text-start">
+        <h3 v-if="firstRecommendations.length > 0" class="mb-3 text-start">
           Doctors that matches all your preferences and best specialization
         </h3>
+        <h3 v-else class="mb-3 text-start">
+          We couldn't find any doctors that match all your preferences and best specialization.
+        </h3> 
         <DoctorRow
           v-for="(doctor, index) in firstRecommendations"
           :doctor="doctor"
@@ -172,11 +175,16 @@ function searchDoctor() {
           :key="index"
           @click="showModal(doctor)"
         />
+
+        
       </div>
       <div class="mt-4">
-        <h3 class="mb-3 text-start">
+        <h3 v-if="secondRecommendations.length > 0" class="mb-3 text-start">
           Doctors that matches your location preference and best specialization
         </h3>
+        <h3 v-else class="mb-3 text-start">
+          We couldn't find any doctors that match your location and best specialization.
+        </h3> 
         <DoctorRow
           v-for="(doctor, index) in secondRecommendations"
           :doctor="doctor"
@@ -184,6 +192,7 @@ function searchDoctor() {
           :key="index"
           @click="showModal(doctor)"
         />
+        
       </div>
       <div class="mt-4">
         <h3 class="mb-3 text-start">
@@ -243,6 +252,7 @@ function searchDoctor() {
             v-for="doctor in specRecommendations"
             :doctor="doctor"
             :isFirst="false"
+            :isSpec="true"
             :key="doctor.name"
             @click="showModal(doctor)"
           />
