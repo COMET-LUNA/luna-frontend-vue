@@ -34,11 +34,16 @@ defineProps({
                     {{ symptom.symptom.Name }}
                 </li>
             </ul>
-            The best specialization we found for you is: 
-            <div class="fs-5 fw-bold text-center mb-3">{{specialization[0]}}</div>
-            The other specializations that could be appropriate as well:
-            <div v-for="(item, index) in specialization">
-              <li v-if="index != 0" class="fw-bold">{{item}}</li>
+            <div v-if="specialization.length > 0">
+                The best specialization we found for you is: 
+                <div class="fs-5 fw-bold text-center mb-3">{{specialization[0]}}</div>
+                The other specializations that could be appropriate as well:
+                <div v-for="(item, index) in specialization">
+                <li v-if="index != 0" class="fw-bold">{{item}}</li>
+                </div>
+            </div>
+            <div v-else>
+                We couldn't find a specialization that matches your symptoms.
             </div>
         </div>
         <div class="container rounded-3 p-3 mt-3 text-white" style="backgroundColor: #3B4AD0">

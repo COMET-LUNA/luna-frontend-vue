@@ -148,138 +148,144 @@ function searchDoctor() {
       </div>
     </div>
     <div class="col-9" v-else>
-      <div class="d-flex align-items-center mt-3">
-        <span>
-          <h5 class="me-3">Legend</h5>
-        </span>
-        <span class="me-3"
-          ><span class="badge bg-primary">1st</span> - All preferences and best
-          specialization match</span
-        >
-        <span class="me-3"
-          ><span class="badge bg-primary">2nd</span> - Only specialization and
-          location preference matched</span
-        >
-      </div>
-      <div class="mt-4">
-        <h3 v-if="firstRecommendations.length > 0" class="mb-3 text-start">
-          Doctors that matches all your preferences and best specialization
-        </h3>
-        <h3 v-else class="mb-3 text-start">
-          We couldn't find any doctors that match all your preferences and best specialization.
-        </h3> 
-        <DoctorRow
-          v-for="(doctor, index) in firstRecommendations"
-          :doctor="doctor"
-          :isFirst="true"
-          :key="index"
-          @click="showModal(doctor)"
-        />
-
-        
-      </div>
-      <div class="mt-4">
-        <h3 v-if="secondRecommendations.length > 0" class="mb-3 text-start">
-          Doctors that matches your location preference and best specialization
-        </h3>
-        <h3 v-else class="mb-3 text-start">
-          We couldn't find any doctors that match your location and best specialization.
-        </h3> 
-        <DoctorRow
-          v-for="(doctor, index) in secondRecommendations"
-          :doctor="doctor"
-          :isFirst="false"
-          :key="index"
-          @click="showModal(doctor)"
-        />
-        
-      </div>
-      <div class="mt-4">
-        <h3 class="mb-3 text-start">
-          Doctors who specialize in {{ specialization.join(", ") }}
-        </h3>
-        <div v-if="showSpec">
-          <div class="row my-3">
-            <div class="col-6 d-flex align-items-center">
-              <input
-                type="text"
-                class="form-control"
-                placeholder="Search Doctors"
-                aria-label="doctors"
-              />
-            </div>
-            <div class="col-6 d-flex justify-content-end align-items-center">
-              <span class="fw-bold me-5">Sort Results by</span>
-              <!-- <button type="button" class="btn btn-outline-primary" @click="sortLocationally()">Location</button>
-                <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(false)">Alphabetically (A-Z)</button>
-                <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(true)">Alphabetically (Z-A)</button> -->
-              <div class="dropdown">
-                <button
-                  class="btn btn-primary dropdown-toggle"
-                  type="button"
-                  id="dropdownMenuButton"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                >
-                  {{ sortOrder }}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li>
-                    <a class="dropdown-item" @click="sortLocationally()"
-                      >Location</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="sortAlphabetically(false)"
-                      >Last Name Alphabetically (A-Z)</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="sortAlphabetically(true)"
-                      >Last Name Alphabetically (Z-A)</a
-                    >
-                  </li>
-                  <li>
-                    <a class="dropdown-item" @click="sortSpecialization()"
-                      >Specialization</a
-                    >
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </div>
+      <div v-if="specialization.length > 0">
+        <div class="d-flex align-items-center mt-3">
+          <span>
+            <h5 class="me-3">Legend</h5>
+          </span>
+          <span class="me-3"
+            ><span class="badge bg-primary">1st</span> - All preferences and best
+            specialization match</span
+          >
+          <span class="me-3"
+            ><span class="badge bg-primary">2nd</span> - Only specialization and
+            location preference matched</span
+          >
+        </div>
+        <div class="mt-4">
+          <h3 v-if="firstRecommendations.length > 0" class="mb-3 text-start">
+            Doctors that matches all your preferences and best specialization
+          </h3>
+          <h3 v-else class="mb-3 text-start">
+            We couldn't find any doctors that match all your preferences and best specialization.
+          </h3> 
           <DoctorRow
-            v-for="doctor in specRecommendations"
+            v-for="(doctor, index) in firstRecommendations"
             :doctor="doctor"
-            :isFirst="false"
-            :isSpec="true"
-            :key="doctor.name"
+            :isFirst="true"
+            :key="index"
             @click="showModal(doctor)"
           />
-          <button
-            class="btn btn-primary"
-            @click="
-              () => {
-                showSpec = false;
-              }
-            "
-          >
-            Hide
-          </button>
+
+          
         </div>
-        <div v-else>
-          <button
-            class="btn btn-primary"
-            @click="
-              () => {
-                showSpec = true;
-              }
-            "
-          >
-            Show doctors
-          </button>
+        <div class="mt-4">
+          <h3 v-if="secondRecommendations.length > 0" class="mb-3 text-start">
+            Doctors that matches your location preference and best specialization
+          </h3>
+          <h3 v-else class="mb-3 text-start">
+            We couldn't find any doctors that match your location and best specialization.
+          </h3> 
+          <DoctorRow
+            v-for="(doctor, index) in secondRecommendations"
+            :doctor="doctor"
+            :isFirst="false"
+            :key="index"
+            @click="showModal(doctor)"
+          />
+          
+        </div>
+        <div class="mt-4">
+          <h3 class="mb-3 text-start">
+            Doctors who specialize in {{ specialization.join(", ") }}
+          </h3>
+          <div v-if="showSpec">
+            <div class="row my-3">
+              <div class="col-6 d-flex align-items-center">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Search Doctors"
+                  aria-label="doctors"
+                />
+              </div>
+              <div class="col-6 d-flex justify-content-end align-items-center">
+                <span class="fw-bold me-5">Sort Results by</span>
+                <!-- <button type="button" class="btn btn-outline-primary" @click="sortLocationally()">Location</button>
+                  <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(false)">Alphabetically (A-Z)</button>
+                  <button type="button" class="btn btn-outline-primary" @click="sortAlphabetically(true)">Alphabetically (Z-A)</button> -->
+                <div class="dropdown">
+                  <button
+                    class="btn btn-primary dropdown-toggle"
+                    type="button"
+                    id="dropdownMenuButton"
+                    data-bs-toggle="dropdown"
+                    aria-expanded="false"
+                  >
+                    {{ sortOrder }}
+                  </button>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <li>
+                      <a class="dropdown-item" @click="sortLocationally()"
+                        >Location</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" @click="sortAlphabetically(false)"
+                        >Last Name Alphabetically (A-Z)</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" @click="sortAlphabetically(true)"
+                        >Last Name Alphabetically (Z-A)</a
+                      >
+                    </li>
+                    <li>
+                      <a class="dropdown-item" @click="sortSpecialization()"
+                        >Specialization</a
+                      >
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <DoctorRow
+              v-for="doctor in specRecommendations"
+              :doctor="doctor"
+              :isFirst="false"
+              :isSpec="true"
+              :key="doctor.name"
+              @click="showModal(doctor)"
+            />
+            <button
+              class="btn btn-primary"
+              @click="
+                () => {
+                  showSpec = false;
+                }
+              "
+            >
+              Hide
+            </button>
+          </div>
+          <div v-else>
+            <button
+              class="btn btn-primary"
+              @click="
+                () => {
+                  showSpec = true;
+                }
+              "
+            >
+              Show doctors
+            </button>
+          </div>
         </div>
       </div>
+      <div class="py-5" v-else>
+        <h2>We couldn't find any specialization that matches your symptoms. Try again with less symptoms.</h2>
+      </div>
+      
     </div>
   </div>
 
