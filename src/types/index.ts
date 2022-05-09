@@ -38,4 +38,5 @@ export interface Doctor {
     sex: string,
     specialization: string,
     startyear: number,
+    teleconsult: string,
 }

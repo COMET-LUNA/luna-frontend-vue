@@ -331,6 +331,14 @@ function searchDoctor() {
             >
           </div>
           <div class="mt-3 row">
+            <span class="fw-bold">Teleconsult:</span>
+            <span
+            v-if="modalDoctor.teleconsult === 'yes'"
+              >Doctor is <span class="fw-bold">available</span> for teleconsult.</span
+            >
+            <span v-else>Doctor is <span class="fw-bold">not available</span> for teleconsult.</span>
+          </div>
+          <div class="mt-3 row">
             <span class="fw-bold">Contact Information</span>
             <span
               ><i class="fa-solid fa-phone-alt px-3"></i
