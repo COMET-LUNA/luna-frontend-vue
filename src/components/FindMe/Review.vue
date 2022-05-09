@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {ref} from 'vue'
-import { useWorkspace, setWorkspace, symptomLocationDict, sexDict, agesDict, experiencesDict, pricesDict } from '../../composables';
+import { useWorkspace, setWorkspace, symptomLocationDict, sexDict, agesDict, experiencesDict, pricesDict, teleconsultDict } from '../../composables';
 
 
 const workspace = useWorkspace()
@@ -39,7 +39,8 @@ const props = defineProps({
                 <tbody>
                     <tr>
                     <th>Doctor Location</th>
-                    <td>{{preferences.location}}</td>
+                    <td v-if="preferences.location === ''">No preference</td>
+                    <td v-else>{{preferences.location}}</td>
                     </tr>
                     <tr>
                     <th>Doctor Age</th>
@@ -55,7 +56,12 @@ const props = defineProps({
                     </tr>
                     <tr>
                     <th>Doctor Sex</th>
-                    <td>{{preferences.sex}}</td>
+                    <td v-if="preferences.sex === 'none'">No preference</td>
+                    <td v-else>{{preferences.sex}}</td>
+                    </tr>
+                    <tr>
+                    <th>Teleconsults?</th>
+                    <td>{{teleconsultDict[preferences.teleconsult]}}</td>
                     </tr>
                 </tbody>
             </table>

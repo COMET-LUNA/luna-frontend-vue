@@ -46,7 +46,7 @@
     },
     {
       "val": 10,
-      "act": "10 of more years of experience"
+      "act": "10 to 19 years of experience"
     },
     {
       "val": 20,
@@ -87,6 +87,20 @@
     {
       "val": "Female",
       "act": "Female"
+    },
+    {
+      "val": "none",
+      "act": "No Preference"
+    }
+  ],
+  "teleconsult": [
+    {
+      "val": "yes",
+      "act": "Yes"
+    },
+    {
+      "val": "no",
+      "act": "No"
     },
     {
       "val": "none",

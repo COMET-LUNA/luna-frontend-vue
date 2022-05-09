@@ -12,6 +12,8 @@
       weightKg: "",
       diet: "",
       illnesses: "",
+      previousSurgeries: "",
+      allergies: "",
   })
 
   state = workspace.registration.medical
@@ -110,6 +112,14 @@
                 <div class="form-floating mb-3">
                   <textarea class="form-control textarea-height" placeholder="Leave a comment here" id="floatingTextarea" v-model="state.illnesses"></textarea>
                   <label for="floatingTextarea">Known Illnesses</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea class="form-control textarea-height" placeholder="Leave a comment here" id="floatingTextarea" v-model="state.previousSurgeries" ></textarea>
+                  <label for="floatingTextarea">Previous Surgeries</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea class="form-control textarea-height" placeholder="Leave a comment here" id="floatingTextarea" v-model="state.allergies"></textarea>
+                  <label for="floatingTextarea">Allergies</label>
                 </div>
 
                 <div :class="showError ? 'alert alert-danger' : 'alert alert-danger d-none'" role="alert">

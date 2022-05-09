@@ -49,7 +49,7 @@ const experiencesDict = {
   1: "Less than 10 years of experience",
   10: "10 of more years of experience",
   20: "20 or more years of experience",
-  0: "No Preference",
+  0: "No preference",
 };
 
 const pricesDict = {
@@ -60,4 +60,10 @@ const pricesDict = {
   "-1": "No preference",
 };
 
-export { symptomLocationDict, birthMonthDict, bloodTypeDict, sexDict, agesDict, experiencesDict, pricesDict };
+const teleconsultDict = {
+  "yes": "Yes",
+  "no": "No",
+  "none": "No preference"
+}
+
+export { symptomLocationDict, birthMonthDict, bloodTypeDict, sexDict, agesDict, experiencesDict, pricesDict, teleconsultDict };
