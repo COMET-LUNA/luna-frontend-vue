@@ -65,7 +65,7 @@ onMounted(async () => {
     const data = await useLoadDoctor();
     addToHistory(data.diagnosis);
 
-    specialization.value = data.specialization.map((x) => x.Name);
+    specialization.value = data.specialization;
     // if(data.diagnosis.length >= 2) specialization.value[1] = data.diagnosis[1].Specialisation[0].Name
     // if(data.diagnosis.length >= 3) specialization.value[2] = data.diagnosis[2].Specialisation[0].Name
 

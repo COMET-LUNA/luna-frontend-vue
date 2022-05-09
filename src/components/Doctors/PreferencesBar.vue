@@ -52,7 +52,8 @@ defineProps({
                 <tbody>
                 <tr>
                     <th class="text-start">Doctor Location</th>
-                    <td class="text-end">{{ preferences.location }}</td>
+                    <td class="text-end" v-if="preferences.location === ''">No preference</td>
+                    <td class="text-end" v-else>{{ preferences.location }}</td>
                 </tr>
                 <tr>
                     <th class="text-start">Doctor Age</th>
