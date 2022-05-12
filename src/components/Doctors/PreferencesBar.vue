@@ -2,7 +2,7 @@
 import { reactive, ref } from 'vue'
 import { PreferencesObject } from '../../types';
 import Options from '../../data/options.json' 
-import { useWorkspace, sexDict, agesDict, experiencesDict, pricesDict } from '../../composables'
+import { useWorkspace, sexDict, agesDict, experiencesDict, pricesDict, teleconsultDict } from '../../composables'
 
 const editmode = ref(false)
 // const {locations, genders, prices, ages, experiences } = Options
@@ -70,6 +70,10 @@ defineProps({
                 <tr>
                     <th class="text-start">Doctor Sex</th>
                     <td class="text-end">{{ preferences.sex }}</td>
+                </tr>
+                <tr>
+                    <th class="text-start">Does doctor teleconsult?</th>
+                    <td class="text-end">{{ teleconsultDict[preferences.teleconsult] }}</td>
                 </tr>
                 </tbody>
             </table> 
