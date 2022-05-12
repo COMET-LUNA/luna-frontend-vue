@@ -10,6 +10,7 @@ interface SideData {
   diagnosis: any;
   symptoms: Array<any>;
   preferences: any;
+  specializations: any;
 }
 
 const props = defineProps({
@@ -96,7 +97,7 @@ function printPage(index: any) {
 
                     <div class="mt-2">Recommended Specialization:</div>
                     <strong v-if="item.diagnosis[0] !== undefined">
-                        {{item.diagnosis[0].Specialisation[0].Name}}
+                        {{item.specializations[0]}}
                     </strong>
                     <strong v-else>
                       No diagnosis can be made from this combination of symptoms.

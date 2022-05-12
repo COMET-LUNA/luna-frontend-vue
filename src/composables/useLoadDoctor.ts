@@ -23,7 +23,8 @@ export async function useLoadDoctor() {
         age: preferences.value.age,
         experience: preferences.value.experience,
         price: preferences.value.price,
-        sex: preferences.value.sex
+        sex: preferences.value.sex,
+        teleconsult: preferences.value.teleconsult
     }
     console.log(query)
     

@@ -54,7 +54,8 @@ onMounted(async () => {
   const { symptoms, preferences } = useWorkspace();
   if (symptoms.length == 0) {
     const data = JSON.parse(localStorage.getItem("recommendations"));
-    specialization.value = data.specialization.map((x) => x.Name);
+    // specialization.value = data.specialization.map((x) => x.Name);
+    specialization.value = data.specialization;
     firstRecommendations.value = data.firstRecommendations.sort((a, b) => {
       return a.name < b.name;
     });

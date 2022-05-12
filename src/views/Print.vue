@@ -144,7 +144,7 @@ function printPage() {
         Recommended Specialist: (based on the most proabable disease from
         ApiMedic)
       </div>
-      {{ history.diagnosis[0].Specialisation[0].Name }}
+      {{ history.specializations[0] }}
 
       <div class="mt-3 mb-5">
         <span class="fw-bold">Probable Diseases:</span>
