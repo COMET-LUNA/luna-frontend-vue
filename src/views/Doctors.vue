@@ -23,7 +23,7 @@ const sortOrder = ref("Unsorted");
 
 const workspace = useWorkspace();
 
-async function addToHistory(diagnosis: any) {
+async function addToHistory(diagnosis: any, specializations: any) {
   const userText = localStorage.getItem("user");
   let email = "";
   if (userText !== null) {
@@ -36,6 +36,7 @@ async function addToHistory(diagnosis: any) {
   const symVal = symptoms.value;
   const historyObj = {
     diagnosis,
+    specializations,
     preferences: prefVal,
     symptoms: symVal,
     email,
@@ -63,7 +64,7 @@ onMounted(async () => {
     console.log(data);
   } else {
     const data = await useLoadDoctor();
-    addToHistory(data.diagnosis);
+    addToHistory(data.diagnosis, data.specialization);
 
     specialization.value = data.specialization;
     // if(data.diagnosis.length >= 2) specialization.value[1] = data.diagnosis[1].Specialisation[0].Name
