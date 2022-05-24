@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // logic
-import { ref, unref, onMounted, toRaw } from "vue";
+import { ref, unref, onMounted, toRaw, computed } from "vue";
 import { Doctor, PreferencesObject } from "../types";
 import { useLoadDoctor, useWorkspace } from "../composables";
 // components
@@ -20,6 +20,7 @@ const showSpec = ref(false);
 const modalDoctor = ref<Doctor>({});
 const showDoctor = ref(false);
 const sortOrder = ref("Unsorted");
+const searchQuery = ref("")
 
 const workspace = useWorkspace();
 
@@ -125,9 +126,15 @@ function sortSpecialization() {
   sortOrder.value = "Specialization";
 }
 
-function searchDoctor() {
-  
-}
+const searchDoctor = computed(() => {
+  return specRecommendations.value.filter((doctor) => {
+    return (
+        doctor.name
+          .toLowerCase()
+          .indexOf(searchQuery.value.toLowerCase()) != -1
+    )
+  })
+})
 </script>
 
 <style src="../css/FindMe.css"></style>
@@ -207,6 +214,7 @@ function searchDoctor() {
                   class="form-control"
                   placeholder="Search Doctors"
                   aria-label="doctors"
+                  v-model="searchQuery"
                 />
               </div>
               <div class="col-6 d-flex justify-content-end align-items-center">
@@ -250,7 +258,7 @@ function searchDoctor() {
               </div>
             </div>
             <DoctorRow
-              v-for="doctor in specRecommendations"
+              v-for="doctor in searchDoctor"
               :doctor="doctor"
               :isFirst="false"
               :isSpec="true"
