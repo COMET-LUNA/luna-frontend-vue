@@ -24,7 +24,7 @@ const searchQuery = ref("")
 
 const workspace = useWorkspace();
 
-async function addToHistory(diagnosis: any) {
+async function addToHistory(diagnosis: any, specializations: any) {
   const userText = localStorage.getItem("user");
   let email = "";
   if (userText !== null) {
@@ -37,6 +37,7 @@ async function addToHistory(diagnosis: any) {
   const symVal = symptoms.value;
   const historyObj = {
     diagnosis,
+    specializations,
     preferences: prefVal,
     symptoms: symVal,
     email,
@@ -54,7 +55,8 @@ onMounted(async () => {
   const { symptoms, preferences } = useWorkspace();
   if (symptoms.length == 0) {
     const data = JSON.parse(localStorage.getItem("recommendations"));
-    specialization.value = data.specialization.map((x) => x.Name);
+    // specialization.value = data.specialization.map((x) => x.Name);
+    specialization.value = data.specialization;
     firstRecommendations.value = data.firstRecommendations.sort((a, b) => {
       return a.name < b.name;
     });
@@ -64,7 +66,7 @@ onMounted(async () => {
     console.log(data);
   } else {
     const data = await useLoadDoctor();
-    addToHistory(data.diagnosis);
+    addToHistory(data.diagnosis, data.specialization);
 
     specialization.value = data.specialization;
     // if(data.diagnosis.length >= 2) specialization.value[1] = data.diagnosis[1].Specialisation[0].Name

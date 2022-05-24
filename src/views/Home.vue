@@ -60,7 +60,7 @@ onMounted(async () => {
       </p>
     </div>
     <div className="row my-5">
-      <h1 class="mb-3">LUNA Services</h1>
+      <h1 class="mb-5">LUNA Services</h1>
       <!-- Find Me Card -->
       <FindMeComponent class="col-6 pe-2" />
       <!-- History Card -->
