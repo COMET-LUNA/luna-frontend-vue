@@ -2,6 +2,7 @@
 
     import {ref, reactive} from 'vue'
     import {useWorkspace, setWorkspace} from '../../composables'
+    import passwordValidator from 'password-validator'
 
     const workspace = useWorkspace()
 
@@ -17,6 +18,14 @@
     const showError = ref(false)
 
     const errorText = ref("Sample Error Text")
+
+    let schema = new passwordValidator()
+
+    // Schema for Password Validation
+    schema
+      .is().min(8)
+      .has().digits(1)
+      .has().letters(1)
 
     function nextPage() {
         saveChanges()
@@ -44,7 +53,8 @@
             return false
         }
 
-        if (!state.password.match("^(?=.*?[A-Za-z])(?=.*?[0-9])[A-Za-z0-9]{8,}$")) {
+        // if (!state.password.match("^(?=.*?[A-Za-z])(?=.*?[0-9])[A-Za-z0-9]{8,}$")) {
+        if(!schema.validate(state.password)) {
             showError.value = true
             errorText.value = "Password must have at least one letter and one number and must be at least 8 characters."
             return false
