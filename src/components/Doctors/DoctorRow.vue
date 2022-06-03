@@ -20,7 +20,9 @@ const props = defineProps({
 const { doctor, isFirst, isSpec } = props
 
 function getImageUrl() {
-    return doctor.sex == 'Female' ? '/assets/images/doctor_pic_female.jpeg' : '/assets/images/doctor_pic_male.png';
+    let femaleUrl = "https://firebasestorage.googleapis.com/v0/b/luna-doctor-finder.appspot.com/o/doctor_pic_female.jpeg?alt=media&token=1c279909-7f2e-4070-a4a1-a79c45c7e726"
+    let maleUrl = "https://firebasestorage.googleapis.com/v0/b/luna-doctor-finder.appspot.com/o/doctor_pic_male.png?alt=media&token=7dd1b81c-0ae4-4e37-9b7f-3c756b8f0be7"
+    return (doctor.sex == 'Female') ? femaleUrl : maleUrl;
 }
 
 </script>
