@@ -97,6 +97,16 @@ function printPage() {
             <td v-if="user.medical.illnesses">{{user.medical.illnesses}}</td>
             <td v-else>No known illnesses.</td>
           </tr>
+          <tr>
+            <th>Previous Surgeries</th>
+            <td v-if="user.medical.previousSurgeries">{{user.medical.previousSurgeries}}</td>
+            <td v-else>No previous surgeries.</td>
+          </tr>
+          <tr>
+            <th>Known Illnesses</th>
+            <td v-if="user.medical.allergies">{{user.medical.allergies}}</td>
+            <td v-else>No known allergies.</td>
+          </tr>
         </tbody>
       </table>
     </div>

@@ -6,6 +6,7 @@ import Doctors from "./views/Doctors.vue";
 import Login from "./views/Login.vue";
 import Print from "./views/Print.vue";
 import NotFound from "./views/404.vue";
+import Account from './views/Account.vue';
 
 const routes = [
   {
@@ -37,6 +38,11 @@ const routes = [
     path: "/login",
     name: "Login",
     component: Login,
+  },
+  {
+    path: "/account",
+    name: "Account",
+    component: Account,
   },
   { path: "/:pathMatch(.*)*", component: NotFound }
 ];

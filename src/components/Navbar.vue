@@ -73,6 +73,7 @@ function logout() {
           <!-- <li><h6 class="dropdown-header">Account</h6></li>
           <li><a class="dropdown-item" href="#">Change account details</a></li> -->
           <li><h6 class="dropdown-header">Settings</h6></li>
+          <li><router-link class="dropdown-item" :to="'/account'">Manage account</router-link></li>
           <li><a class="dropdown-item" @click="logout">Log out</a></li>
         </ul>
       </div>
