@@ -1,4 +1,4 @@
-# Frontend Source Code - LUNA: Designing a Recommender System
+# Frontend Source Code - LUNA: Designing a Doctor Recommendation System
 This is the frontend code for the LUNA doctor finder system, written in typescript and Vue3.
 
 ## Installation
